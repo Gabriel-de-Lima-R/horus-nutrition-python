@@ -1,4 +1,4 @@
-from services.calculator import CalculatorIMC
+from services import CalculatorIMC
 
 def main():
     imc = CalculatorIMC(70, 180).imc
