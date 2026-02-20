@@ -24,18 +24,25 @@ class Autenticacao:
         self._senha = senha
 
     def valida_email(self, usuarios):
-        return self._email not in usuarios
+        return self._email not in usuarios 
     
     def valida_senha(self):
         tem_oito_caracteres = len(self._senha) >= 8
         tem_letra_maiuscula = any(caracter.isupper() for caracter in self._senha)
         return tem_oito_caracteres and tem_letra_maiuscula
+    
+    def valida_arroba_email(self):
+        return '@' not in self._email
 
     def criar_conta(self):
         usuarios_db = self._carregar_usuarios()
 
         if not self.valida_email(usuarios_db):
             print("Já existe uma conta com esse e-mail.")
+            return False
+
+        if self.valida_arroba_email():
+            print("O e-mail precisa ser válido")
             return False
         
         if not self.valida_senha():

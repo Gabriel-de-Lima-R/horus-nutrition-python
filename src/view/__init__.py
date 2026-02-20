@@ -1,0 +1,1 @@
+from .artes import HORUS_NUTRITION_LOGO
