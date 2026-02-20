@@ -2,3 +2,11 @@
 .venv/
 __pycache__/
 *.pyc
+
+# Pytest (arquivos de cache de teste)
+.pytest_cache/
+.cache/
+*.pytest_cache
+
+# Black (arquivos de cache do black)
+.black/
