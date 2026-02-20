@@ -1,0 +1,98 @@
+REGRAS DE NEGÓCIO - HORUS NUTRITION
+Versão: 1.0
+Objetivo: Documento técnico com as regras para desenvolvimento do aplicativo de dietas personalizadas.
+
+
+1. GERENCIAMENTO DE CONTAS E AUTENTICAÇÃO
+
+RN01 – Criação de Conta
+- O usuário deve criar uma conta utilizando um e-mail válido e uma senha.
+- A senha deve conter no mínimo 8 caracteres e pelo menos uma letra maiúscula.
+- Caso o e-mail já esteja cadastrado, o sistema deve exibir a mensagem:
+  "Já existe uma conta com esse e-mail."
+
+RN02 – Autenticação
+- O sistema deve permitir login com e-mail e senha.
+- Em caso de e-mail ou senha incorretos, deve ser exibida a mensagem:
+  "E-mail ou senha inválidos. Tente novamente."
+- O acesso só é concedido após validação correta das credenciais.
+
+
+2. PRIMEIRO ACESSO E COLETA DE DADOS
+
+RN03 – Jornada de Primeiro Acesso
+- Após o cadastro bem-sucedido, o usuário é direcionado automaticamente para a jornada de primeiro acesso.
+- Essa jornada só pode ser acessada uma única vez, imediatamente após a criação da conta.
+- Durante essa etapa, o usuário deve informar os seguintes dados:
+  - Nome completo
+  - Idade
+  - Gênero
+  - Altura (em cm)
+  - Peso (em kg)
+  - Objetivo principal (emagrecer, manter forma ou ganhar massa muscular)
+
+RN04 – Cálculo Inicial
+- Com base nos dados fornecidos, o sistema deve calcular automaticamente:
+  - IMC (Índice de Massa Corporal)
+  - TMB (Taxa Metabólica Basal)
+- Esses valores devem ser armazenados no perfil do usuário e utilizados para recomendações futuras.
+
+
+3. TELA INICIAL (HOME)
+
+RN05 – Exibição de Informações
+- Na tela inicial, o usuário deve visualizar:
+  - Seu IMC atual
+  - A quantidade de calorias diárias recomendadas com base no objetivo escolhido
+- Caso o usuário ainda não tenha uma dieta gerada, deve ser exibido um botão: "Gerar dieta"
+
+RN06 – Geração de Nova Dieta
+- Ao clicar em "Gerar Dieta" pela primeira vez, o sistema deve trazer uma dieta conforme o objetivo escolhido pelo usuário
+- Se o usuário já possuir uma dieta ativa e clicar em "Gerar dieta", o sistema deve exibir uma mensagem de confirmação:
+  "Deseja gerar uma nova dieta? A dieta anterior será substituída."
+  - Confirmar: uma nova dieta é gerada e substitui a anterior.
+  - Cancelar: nenhuma alteração é feita.
+
+
+4. DIETAS E ALIMENTOS
+
+RN07 – Base de Dietas
+- O sistema deve conter um banco de dados com no mínimo 6 dietas pré-configuradas.
+- As dietas devem ser classificadas por objetivo (emagrecer, manter forma, ganhar massa).
+
+RN08 – Estrutura da Dieta
+- Cada dieta deve ser dividida em 4 refeições diárias:
+  - Café da manhã
+  - Almoço
+  - Lanche
+  - Jantar
+- O total de calorias da dieta deve corresponder exatamente ao valor diário recomendado exibido na tela inicial.
+
+RN09 – Composição dos Alimentos
+- Cada refeição é composta por alimentos, com as seguintes informações:
+  - Nome do alimento
+  - Quantidade (em gramas para alimentos sólidos, em ml para bebidas)
+  - Calorias correspondentes
+
+
+5. CONFIGURAÇÕES E EXCLUSÃO DE CONTA
+
+RN10 – Opções na Tela Inicial
+- A tela inicial deve conter:
+  - Botão "Sair" – encerra a sessão do usuário
+  - Botão "Configurações" – acessa a tela de gerenciamento de conta
+
+RN11 – Alteração de Dados
+- Na tela de configurações, o usuário pode alterar os seguintes dados:
+  - Idade
+  - Altura
+  - Peso
+  - Senha
+- Alterações em altura e peso devem recalcular automaticamente o IMC e a TMB.
+
+RN12 – Exclusão de Conta
+- Deve haver uma opção "Excluir conta" na tela de configurações.
+- Ao clicar, o sistema deve exibir uma mensagem de confirmação:
+  "Tem certeza que deseja excluir sua conta? Essa ação é irreversível."
+  - Confirmar: todos os dados da conta são removidos permanentemente.
+  - Cancelar: o usuário retorna à tela de configurações e nenhuma alterção é feita.
