@@ -67,6 +67,12 @@ class Autenticacao:
             print("E-mail ou senha inválidos. Tente novamente.")
             return False
 
+    @property
+    def primeiro_acesso(self):
+        usuarios_db = self._carregar_usuarios()
+
+        return usuarios_db[self._email]["primeiro_acesso"]
+
     def __str__(self):
         return f'Credenciais do usuário: e-mail "{self._email}" | senha "{self._senha}" '
 

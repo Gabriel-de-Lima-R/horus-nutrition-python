@@ -1,7 +1,8 @@
 import json
 import os
-from services import CalculatorIMC, Autenticacao
+from services import CalculatorIMC, Autenticacao, UserService
 from view import HORUS_NUTRITION_LOGO as logo
+from view import jornada_primeiro_acesso
 
 def limpar_banco_de_usuarios():
     """Reseta o banco usuarios_db"""
@@ -13,10 +14,10 @@ def limpar_banco_de_usuarios():
     except Exception as erro:
         print(f'Erro ao limpar o arquivo JSON: {erro}')
 
-def menu_principal():
+def menu_login():
     while True:
         print(logo)
-        print("=" * 28, '\n')
+        print("=" * 86, '\n')
         print("1. Criar Conta")
         print("2. Fazer Login")
         print("3. Sair")
@@ -35,9 +36,14 @@ def menu_principal():
             senha = input("Senha: ").strip()
             usuario = Autenticacao(email, senha)
             if usuario.fazer_login():
-                print("Encaminhando para o sistema...")
+                if usuario.primeiro_acesso:
+                    dados = jornada_primeiro_acesso(usuario._email)
+                    servico = UserService()
+                    if servico.salvar_perfil(email, dados):
+                        print("Perfil Configurado com Sucesso".upper())
+                else:
+                    print("Jornada Tela Home")
                 break
-                # Entra a jornada primeiro acesso ou jornada menu principal
             input()
 
         elif opcao == "3":
@@ -51,8 +57,8 @@ def menu_principal():
 
 
 def main():
-    limpar_banco_de_usuarios()
-    menu_principal()
+    # limpar_banco_de_usuarios()
+    menu_login()
 
 if __name__ == '__main__':
     main()
