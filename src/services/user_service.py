@@ -1,6 +1,6 @@
 import json
 import os
-from services import Autenticacao, CalculatorIMC, CalculatorTMB
+from src.services import Autenticacao, CalculatorIMC, CalculatorTMB
 
 class UserService:
     def __init__(self):
