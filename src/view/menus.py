@@ -1,5 +1,6 @@
 import os
 from view import HORUS_NUTRITION_LOGO as logo
+from services import DietService
 
 def limpa_terminal():
     os.system('cls' if os.name == 'nt' else 'clear')
@@ -111,7 +112,7 @@ def menu_home(dados_usuario_atual):
     classificacao = classifica_imc(imc)
     print(f" 📊 IMC = {imc:.1f}  →  {classificacao}".center(70))
 
-    manutencao = tmb * 1.4
+    manutencao = DietService().calcular_meta_calorica(tmb, objetivo)
 
     if objetivo == "1":
         meta_calorica = manutencao - 500
@@ -155,4 +156,6 @@ def menu_mostra_dieta(dados_usuario_atual):
         input("\nPressione Enter para voltar...")
         return False
     
-    # {mostra a dieta}
+    print("╔" + "═" * 68 + "╗")
+    print("║" + f"🥗 {dieta_usuario['nome']}".center(67) + "║")
+    print("╚" + "═" * 68 + "╝")
