@@ -96,9 +96,9 @@ def jornada_primeiro_acesso(email_usuario):
 def menu_home(dados_usuario_atual):
     limpa_terminal()
 
-    # print("╔" + "═" * 68 + "╗")
-    # print("║" + "🏠 PAINEL DO USUÁRIO".center(67) + "║")
-    # print("╚" + "═" * 68 + "╝")
+    print("╔" + "═" * 68 + "╗")
+    print("║" + "🏠 PAINEL DO USUÁRIO".center(67) + "║")
+    print("╚" + "═" * 68 + "╝")
 
     nome = dados_usuario_atual.get('nome')
     primeiro_nome = nome.split()[0]
@@ -140,3 +140,19 @@ def menu_home(dados_usuario_atual):
     print("╚" + "═" * 45 + "╝")
     
     escolha = input("\nEscolha: ").strip()
+    return escolha
+
+def menu_mostra_dieta(dados_usuario_atual):
+    limpa_terminal()
+
+    dieta_usuario = dados_usuario_atual.get('dieta')
+    
+    if not dieta_usuario:
+        print("\n" + "!"*40)
+        print("🔍 Você ainda não possui uma dieta.")
+        print("Volte para a Tela Home para gerar uma!")
+        print("!"*40)
+        input("\nPressione Enter para voltar...")
+        return False
+    
+    # {mostra a dieta}

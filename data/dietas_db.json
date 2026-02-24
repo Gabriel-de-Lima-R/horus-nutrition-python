@@ -1,0 +1,426 @@
+{
+  "dietas": [
+    {
+      "id": "dieta_1000",
+      "nome": "Dieta Leve - 1000 kcal",
+      "objetivo": "emagrecer",
+      "calorias_totais": 1015,
+      "refeicoes": [
+        {
+          "nome": "Café da Manhã",
+          "alimentos": [
+            {"nome": "Pão integral", "quantidade": 1, "unidade": "fatia", "calorias": 70},
+            {"nome": "Queijo branco", "quantidade": 30, "unidade": "g", "calorias": 70},
+            {"nome": "Café sem açúcar", "quantidade": 200, "unidade": "ml", "calorias": 5}
+          ],
+          "calorias_totais": 145
+        },
+        {
+          "nome": "Almoço",
+          "alimentos": [
+            {"nome": "Frango grelhado", "quantidade": 100, "unidade": "g", "calorias": 165},
+            {"nome": "Arroz integral", "quantidade": 100, "unidade": "g", "calorias": 124},
+            {"nome": "Brócolis cozido", "quantidade": 100, "unidade": "g", "calorias": 35},
+            {"nome": "Azeite", "quantidade": 5, "unidade": "ml", "calorias": 45}
+          ],
+          "calorias_totais": 369
+        },
+        {
+          "nome": "Lanche",
+          "alimentos": [
+            {"nome": "Iogurte natural", "quantidade": 150, "unidade": "g", "calorias": 90},
+            {"nome": "Morango", "quantidade": 100, "unidade": "g", "calorias": 33}
+          ],
+          "calorias_totais": 123
+        },
+        {
+          "nome": "Jantar",
+          "alimentos": [
+            {"nome": "Sopa de legumes", "quantidade": 300, "unidade": "ml", "calorias": 180},
+            {"nome": "Ovo cozido", "quantidade": 1, "unidade": "unidade", "calorias": 78}
+          ],
+          "calorias_totais": 258
+        }
+      ]
+    },
+    {
+      "id": "dieta_1200",
+      "nome": "Dieta Equilibrada - 1200 kcal",
+      "objetivo": "emagrecer",
+      "calorias_totais": 1210,
+      "refeicoes": [
+        {
+          "nome": "Café da Manhã",
+          "alimentos": [
+            {"nome": "Pão integral", "quantidade": 2, "unidade": "fatias", "calorias": 140},
+            {"nome": "Queijo minas", "quantidade": 40, "unidade": "g", "calorias": 100},
+            {"nome": "Café com leite", "quantidade": 200, "unidade": "ml", "calorias": 80}
+          ],
+          "calorias_totais": 320
+        },
+        {
+          "nome": "Almoço",
+          "alimentos": [
+            {"nome": "Filé de peixe", "quantidade": 120, "unidade": "g", "calorias": 150},
+            {"nome": "Arroz integral", "quantidade": 150, "unidade": "g", "calorias": 186},
+            {"nome": "Salada verde", "quantidade": 150, "unidade": "g", "calorias": 45},
+            {"nome": "Azeite", "quantidade": 10, "unidade": "ml", "calorias": 90}
+          ],
+          "calorias_totais": 471
+        },
+        {
+          "nome": "Lanche",
+          "alimentos": [
+            {"nome": "Banana", "quantidade": 1, "unidade": "unidade", "calorias": 105},
+            {"nome": "Castanhas", "quantidade": 20, "unidade": "g", "calorias": 120}
+          ],
+          "calorias_totais": 225
+        },
+        {
+          "nome": "Jantar",
+          "alimentos": [
+            {"nome": "Omelete", "quantidade": 2, "unidade": "ovos", "calorias": 180},
+            {"nome": "Salada de tomate", "quantidade": 100, "unidade": "g", "calorias": 18}
+          ],
+          "calorias_totais": 198
+        }
+      ]
+    },
+    {
+      "id": "dieta_1500",
+      "nome": "Dieta Moderada - 1500 kcal",
+      "objetivo": "manter_forma",
+      "calorias_totais": 1510,
+      "refeicoes": [
+        {
+          "nome": "Café da Manhã",
+          "alimentos": [
+            {"nome": "Pão francês", "quantidade": 2, "unidade": "unidades", "calorias": 300},
+            {"nome": "Manteiga", "quantidade": 10, "unidade": "g", "calorias": 75},
+            {"nome": "Leite", "quantidade": 200, "unidade": "ml", "calorias": 120},
+            {"nome": "Mamão", "quantidade": 100, "unidade": "g", "calorias": 45}
+          ],
+          "calorias_totais": 540
+        },
+        {
+          "nome": "Almoço",
+          "alimentos": [
+            {"nome": "Bife grelhado", "quantidade": 150, "unidade": "g", "calorias": 300},
+            {"nome": "Arroz branco", "quantidade": 200, "unidade": "g", "calorias": 260},
+            {"nome": "Feijão", "quantidade": 100, "unidade": "ml", "calorias": 80},
+            {"nome": "Farofa", "quantidade": 30, "unidade": "g", "calorias": 120}
+          ],
+          "calorias_totais": 760
+        },
+        {
+          "nome": "Lanche",
+          "alimentos": [
+            {"nome": "Iogurte", "quantidade": 200, "unidade": "ml", "calorias": 120},
+            {"nome": "Granola", "quantidade": 20, "unidade": "g", "calorias": 80}
+          ],
+          "calorias_totais": 200
+        },
+        {
+          "nome": "Jantar",
+          "alimentos": [
+            {"nome": "Sanduíche natural", "quantidade": 1, "unidade": "unidade", "calorias": 250},
+            {"nome": "Suco natural", "quantidade": 300, "unidade": "ml", "calorias": 120}
+          ],
+          "calorias_totais": 370
+        }
+      ]
+    },
+    {
+      "id": "dieta_1800",
+      "nome": "Dieta Ativa - 1800 kcal",
+      "objetivo": "manter_forma",
+      "calorias_totais": 1815,
+      "refeicoes": [
+        {
+          "nome": "Café da Manhã",
+          "alimentos": [
+            {"nome": "Pão integral", "quantidade": 3, "unidade": "fatias", "calorias": 210},
+            {"nome": "Peito de peru", "quantidade": 50, "unidade": "g", "calorias": 60},
+            {"nome": "Queijo mussarela", "quantidade": 40, "unidade": "g", "calorias": 130},
+            {"nome": "Suco de laranja", "quantidade": 300, "unidade": "ml", "calorias": 135}
+          ],
+          "calorias_totais": 535
+        },
+        {
+          "nome": "Almoço",
+          "alimentos": [
+            {"nome": "Frango grelhado", "quantidade": 200, "unidade": "g", "calorias": 330},
+            {"nome": "Arroz integral", "quantidade": 200, "unidade": "g", "calorias": 248},
+            {"nome": "Feijão preto", "quantidade": 150, "unidade": "ml", "calorias": 120},
+            {"nome": "Legumes refogados", "quantidade": 150, "unidade": "g", "calorias": 90}
+          ],
+          "calorias_totais": 788
+        },
+        {
+          "nome": "Lanche",
+          "alimentos": [
+            {"nome": "Açaí", "quantidade": 200, "unidade": "g", "calorias": 250},
+            {"nome": "Granola", "quantidade": 20, "unidade": "g", "calorias": 80}
+          ],
+          "calorias_totais": 330
+        },
+        {
+          "nome": "Jantar",
+          "alimentos": [
+            {"nome": "Omelete", "quantidade": 3, "unidade": "ovos", "calorias": 270},
+            {"nome": "Batata doce", "quantidade": 100, "unidade": "g", "calorias": 86},
+            {"nome": "Salada", "quantidade": 100, "unidade": "g", "calorias": 30}
+          ],
+          "calorias_totais": 386
+        }
+      ]
+    },
+    {
+      "id": "dieta_2000",
+      "nome": "Dieta Massa - 2000 kcal",
+      "objetivo": "ganhar_massa",
+      "calorias_totais": 2010,
+      "refeicoes": [
+        {
+          "nome": "Café da Manhã",
+          "alimentos": [
+            {"nome": "Pão francês", "quantidade": 3, "unidade": "unidades", "calorias": 450},
+            {"nome": "Manteiga", "quantidade": 15, "unidade": "g", "calorias": 110},
+            {"nome": "Leite", "quantidade": 300, "unidade": "ml", "calorias": 180},
+            {"nome": "Banana", "quantidade": 2, "unidade": "unidades", "calorias": 210}
+          ],
+          "calorias_totais": 950
+        },
+        {
+          "nome": "Almoço",
+          "alimentos": [
+            {"nome": "Peito de frango", "quantidade": 250, "unidade": "g", "calorias": 412},
+            {"nome": "Arroz branco", "quantidade": 300, "unidade": "g", "calorias": 390},
+            {"nome": "Feijão", "quantidade": 200, "unidade": "ml", "calorias": 160},
+            {"nome": "Batata frita", "quantidade": 100, "unidade": "g", "calorias": 300}
+          ],
+          "calorias_totais": 1262
+        },
+        {
+          "nome": "Lanche",
+          "alimentos": [
+            {"nome": "Vitamina de frutas", "quantidade": 400, "unidade": "ml", "calorias": 350},
+            {"nome": "Pão de queijo", "quantidade": 2, "unidade": "unidades", "calorias": 200}
+          ],
+          "calorias_totais": 550
+        },
+        {
+          "nome": "Jantar",
+          "alimentos": [
+            {"nome": "Macarrão ao sugo", "quantidade": 300, "unidade": "g", "calorias": 400},
+            {"nome": "Carne moída", "quantidade": 150, "unidade": "g", "calorias": 250},
+            {"nome": "Queijo ralado", "quantidade": 20, "unidade": "g", "calorias": 80}
+          ],
+          "calorias_totais": 730
+        }
+      ]
+    },
+    {
+      "id": "dieta_2500",
+      "nome": "Dieta Hipercalórica - 2500 kcal",
+      "objetivo": "ganhar_massa",
+      "calorias_totais": 2515,
+      "refeicoes": [
+        {
+          "nome": "Café da Manhã",
+          "alimentos": [
+            {"nome": "Pão integral", "quantidade": 4, "unidade": "fatias", "calorias": 280},
+            {"nome": "Ovos mexidos", "quantidade": 4, "unidade": "unidades", "calorias": 360},
+            {"nome": "Abacate", "quantidade": 100, "unidade": "g", "calorias": 160},
+            {"nome": "Suco de laranja", "quantidade": 300, "unidade": "ml", "calorias": 135}
+          ],
+          "calorias_totais": 935
+        },
+        {
+          "nome": "Almoço",
+          "alimentos": [
+            {"nome": "Contra-filé", "quantidade": 300, "unidade": "g", "calorias": 600},
+            {"nome": "Arroz branco", "quantidade": 400, "unidade": "g", "calorias": 520},
+            {"nome": "Feijão tropeiro", "quantidade": 200, "unidade": "g", "calorias": 300},
+            {"nome": "Vinagrete", "quantidade": 100, "unidade": "g", "calorias": 80}
+          ],
+          "calorias_totais": 1500
+        },
+        {
+          "nome": "Lanche",
+          "alimentos": [
+            {"nome": "Sanduíche de frango", "quantidade": 1, "unidade": "unidade", "calorias": 450},
+            {"nome": "Batata frita", "quantidade": 100, "unidade": "g", "calorias": 300}
+          ],
+          "calorias_totais": 750
+        },
+        {
+          "nome": "Jantar",
+          "alimentos": [
+            {"nome": "Salmão grelhado", "quantidade": 250, "unidade": "g", "calorias": 500},
+            {"nome": "Purê de batata", "quantidade": 200, "unidade": "g", "calorias": 240},
+            {"nome": "Legumes salteados", "quantidade": 150, "unidade": "g", "calorias": 120}
+          ],
+          "calorias_totais": 860
+        }
+      ]
+    },
+        {
+      "id": "dieta_3000",
+      "nome": "Dieta Hardcore - 3000 kcal",
+      "objetivo": "ganhar_massa",
+      "calorias_totais": 3010,
+      "refeicoes": [
+        {
+          "nome": "Café da Manhã",
+          "alimentos": [
+            {"nome": "Pão francês", "quantidade": 4, "unidade": "unidades", "calorias": 600},
+            {"nome": "Ovos mexidos", "quantidade": 5, "unidade": "unidades", "calorias": 450},
+            {"nome": "Queijo prato", "quantidade": 50, "unidade": "g", "calorias": 180},
+            {"nome": "Leite integral", "quantidade": 400, "unidade": "ml", "calorias": 240},
+            {"nome": "Mel", "quantidade": 20, "unidade": "g", "calorias": 60}
+          ],
+          "calorias_totais": 1530
+        },
+        {
+          "nome": "Almoço",
+          "alimentos": [
+            {"nome": "Picanha", "quantidade": 350, "unidade": "g", "calorias": 800},
+            {"nome": "Arroz branco", "quantidade": 400, "unidade": "g", "calorias": 520},
+            {"nome": "Feijoada", "quantidade": 300, "unidade": "g", "calorias": 450},
+            {"nome": "Farofa", "quantidade": 50, "unidade": "g", "calorias": 200},
+            {"nome": "Couve refogada", "quantidade": 100, "unidade": "g", "calorias": 80}
+          ],
+          "calorias_totais": 2050
+        },
+        {
+          "nome": "Lanche",
+          "alimentos": [
+            {"nome": "Milk shake", "quantidade": 500, "unidade": "ml", "calorias": 600},
+            {"nome": "Pão de queijo", "quantidade": 4, "unidade": "unidades", "calorias": 400},
+            {"nome": "Bolo de chocolate", "quantidade": 1, "unidade": "fatia", "calorias": 350}
+          ],
+          "calorias_totais": 1350
+        },
+        {
+          "nome": "Jantar",
+          "alimentos": [
+            {"nome": "Lasanha", "quantidade": 400, "unidade": "g", "calorias": 600},
+            {"nome": "Frango empanado", "quantidade": 300, "unidade": "g", "calorias": 500},
+            {"nome": "Batata frita", "quantidade": 150, "unidade": "g", "calorias": 450},
+            {"nome": "Maionese", "quantidade": 30, "unidade": "g", "calorias": 200}
+          ],
+          "calorias_totais": 1750
+        }
+      ]
+    },
+    {
+      "id": "dieta_4000",
+      "nome": "Dieta Monstra - 4000 kcal",
+      "objetivo": "ganhar_massa",
+      "calorias_totais": 4025,
+      "refeicoes": [
+        {
+          "nome": "Café da Manhã",
+          "alimentos": [
+            {"nome": "Pão francês", "quantidade": 6, "unidade": "unidades", "calorias": 900},
+            {"nome": "Ovos mexidos", "quantidade": 6, "unidade": "unidades", "calorias": 540},
+            {"nome": "Queijo mussarela", "quantidade": 100, "unidade": "g", "calorias": 300},
+            {"nome": "Leite integral", "quantidade": 500, "unidade": "ml", "calorias": 300},
+            {"nome": "Aveia", "quantidade": 50, "unidade": "g", "calorias": 200},
+            {"nome": "Banana", "quantidade": 2, "unidade": "unidades", "calorias": 210}
+          ],
+          "calorias_totais": 2450
+        },
+        {
+          "nome": "Almoço",
+          "alimentos": [
+            {"nome": "Contra-filé", "quantidade": 500, "unidade": "g", "calorias": 1000},
+            {"nome": "Arroz branco", "quantidade": 500, "unidade": "g", "calorias": 650},
+            {"nome": "Feijão preto", "quantidade": 300, "unidade": "ml", "calorias": 240},
+            {"nome": "Batata frita", "quantidade": 200, "unidade": "g", "calorias": 600},
+            {"nome": "Farofa", "quantidade": 100, "unidade": "g", "calorias": 400},
+            {"nome": "Ovo frito", "quantidade": 2, "unidade": "unidades", "calorias": 180}
+          ],
+          "calorias_totais": 3070
+        },
+        {
+          "nome": "Lanche",
+          "alimentos": [
+            {"nome": "Sanduíche de frango", "quantidade": 2, "unidade": "unidades", "calorias": 900},
+            {"nome": "Batata frita", "quantidade": 150, "unidade": "g", "calorias": 450},
+            {"nome": "Refrigerante", "quantidade": 350, "unidade": "ml", "calorias": 150},
+            {"nome": "Sorvete", "quantidade": 2, "unidade": "bolas", "calorias": 300}
+          ],
+          "calorias_totais": 1800
+        },
+        {
+          "nome": "Jantar",
+          "alimentos": [
+            {"nome": "Pizza", "quantidade": 4, "unidade": "fatias", "calorias": 1200},
+            {"nome": "Frango a passarinho", "quantidade": 300, "unidade": "g", "calorias": 600},
+            {"nome": "Cerveja", "quantidade": 600, "unidade": "ml", "calorias": 250},
+            {"nome": "Molho especial", "quantidade": 50, "unidade": "g", "calorias": 150}
+          ],
+          "calorias_totais": 2200
+        }
+      ]
+    },
+    {
+      "id": "dieta_5000",
+      "nome": "Dieta Hulk - 5000 kcal",
+      "objetivo": "ganhar_massa",
+      "calorias_totais": 5035,
+      "refeicoes": [
+        {
+          "nome": "Café da Manhã",
+          "alimentos": [
+            {"nome": "Pão francês", "quantidade": 8, "unidade": "unidades", "calorias": 1200},
+            {"nome": "Ovos mexidos", "quantidade": 8, "unidade": "unidades", "calorias": 720},
+            {"nome": "Queijo coalho", "quantidade": 150, "unidade": "g", "calorias": 450},
+            {"nome": "Leite integral", "quantidade": 600, "unidade": "ml", "calorias": 360},
+            {"nome": "Aveia", "quantidade": 100, "unidade": "g", "calorias": 400},
+            {"nome": "Banana", "quantidade": 3, "unidade": "unidades", "calorias": 315},
+            {"nome": "Pasta de amendoim", "quantidade": 50, "unidade": "g", "calorias": 300}
+          ],
+          "calorias_totais": 3745
+        },
+        {
+          "nome": "Almoço",
+          "alimentos": [
+            {"nome": "Picanha", "quantidade": 600, "unidade": "g", "calorias": 1380},
+            {"nome": "Arroz branco", "quantidade": 600, "unidade": "g", "calorias": 780},
+            {"nome": "Feijoada", "quantidade": 400, "unidade": "g", "calorias": 600},
+            {"nome": "Batata frita", "quantidade": 300, "unidade": "g", "calorias": 900},
+            {"nome": "Farofa", "quantidade": 150, "unidade": "g", "calorias": 600},
+            {"nome": "Ovo frito", "quantidade": 3, "unidade": "unidades", "calorias": 270},
+            {"nome": "Vinagrete", "quantidade": 100, "unidade": "g", "calorias": 80}
+          ],
+          "calorias_totais": 4610
+        },
+        {
+          "nome": "Lanche",
+          "alimentos": [
+            {"nome": "X-tudo", "quantidade": 2, "unidade": "unidades", "calorias": 1200},
+            {"nome": "Batata frita", "quantidade": 200, "unidade": "g", "calorias": 600},
+            {"nome": "Milk shake", "quantidade": 500, "unidade": "ml", "calorias": 600},
+            {"nome": "Sorvete", "quantidade": 3, "unidade": "bolas", "calorias": 450},
+            {"nome": "Brownie", "quantidade": 2, "unidade": "unidades", "calorias": 500}
+          ],
+          "calorias_totais": 3350
+        },
+        {
+          "nome": "Jantar",
+          "alimentos": [
+            {"nome": "Pizza", "quantidade": 6, "unidade": "fatias", "calorias": 1800},
+            {"nome": "Frango empanado", "quantidade": 400, "unidade": "g", "calorias": 660},
+            {"nome": "Macarrão carbonara", "quantidade": 300, "unidade": "g", "calorias": 600},
+            {"nome": "Cerveja", "quantidade": 1000, "unidade": "ml", "calorias": 420},
+            {"nome": "Sobremesa", "quantidade": 1, "unidade": "porção", "calorias": 400}
+          ],
+          "calorias_totais": 3880
+        }
+      ]
+    }
+  ]
+}
