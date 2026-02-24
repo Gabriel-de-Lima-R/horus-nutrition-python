@@ -1,6 +1,6 @@
 import json
 import os
-from src.services import Autenticacao, CalculatorIMC, CalculatorTMB
+from services import Autenticacao, CalculatorIMC, CalculatorTMB
 
 class UserService:
     def __init__(self):
@@ -18,6 +18,10 @@ class UserService:
         """Grava o dicionário de usuários no arquivo JSON."""
         with open(self.db_path, 'w', encoding='utf-8') as arquivo:
             json.dump(dados, arquivo, indent=4)
+
+    def buscar_usuario(self, email):
+        usuarios = self._carregar_usuarios()
+        return usuarios.get(email)
     
     def salvar_perfil(self, email, dados_coletados):
         """Calcula IMC/TMB e atualiza o usuário no JSON"""

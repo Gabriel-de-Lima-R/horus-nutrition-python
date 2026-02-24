@@ -2,7 +2,7 @@ import json
 import os
 from services import CalculatorIMC, Autenticacao, UserService
 from view import HORUS_NUTRITION_LOGO as logo
-from view import jornada_primeiro_acesso
+from view import jornada_primeiro_acesso, menu_home
 
 def limpar_banco_de_usuarios():
     """Reseta o banco usuarios_db"""
@@ -36,13 +36,16 @@ def menu_login():
             senha = input("Senha: ").strip()
             usuario = Autenticacao(email, senha)
             if usuario.fazer_login():
+                servico = UserService()
+
                 if usuario.primeiro_acesso:
                     dados = jornada_primeiro_acesso(usuario._email)
-                    servico = UserService()
                     if servico.salvar_perfil(email, dados):
                         print("Perfil Configurado com Sucesso".upper())
-                else:
-                    print("Jornada Tela Home")
+                        input()
+                
+                dados_atuais = servico.buscar_usuario(email)
+                menu_home(dados_atuais)
                 break
             input()
 

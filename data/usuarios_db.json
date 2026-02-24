@@ -1,1 +1,14 @@
-{"teste@horus.com": {"senha": "SenhaForte123", "primeiro_acesso": true}}
+{
+    "teste@horus.com": {
+        "senha": "SenhaForte123",
+        "primeiro_acesso": false,
+        "nome": "Lucas Henrique Marinho",
+        "idade": 33,
+        "genero": "M",
+        "altura": 190.0,
+        "peso": 80.5,
+        "objetivo": "3",
+        "imc": 22.3,
+        "tmb": 1901.2
+    }
+}

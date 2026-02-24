@@ -1,3 +1,9 @@
+import os
+from view import HORUS_NUTRITION_LOGO as logo
+
+def limpa_terminal():
+    os.system('cls' if os.name == 'nt' else 'clear')
+
 def coleta_nome():
      while True:
         nome_completo = input("Qual o seu nome completo: ").strip()
@@ -50,6 +56,18 @@ def coleta_objetivo():
             return objetivo
         print("Escolha uma opção válida!\n")
 
+def classifica_imc(imc: float):
+    if not imc:
+        return "Não calculado" 
+    if imc < 18.5:
+        return "Abaixo do peso"
+    elif imc < 25:
+        return "Peso ideal"
+    elif imc < 30:
+        return "Sobrepeso"
+    else:
+        return "Obesidade"
+
 def jornada_primeiro_acesso(email_usuario):
     print("\n" + "="*40)
     print("Seja Bem-Vindo(a) ao Horus Nutrition")
@@ -62,8 +80,9 @@ def jornada_primeiro_acesso(email_usuario):
     altura = coleta_altura()
     peso = coleta_peso()
     objetivo = coleta_objetivo()
+    primeiro_nome = nome_completo.split()[0]
 
-    print(f"\nObrigado, {nome_completo}! Estamos calculando seu IMC e TMB...")
+    print(f"\nObrigado, {primeiro_nome}! Estamos calculando seu IMC e TMB...")
 
     return {
         "nome": nome_completo,
@@ -73,3 +92,37 @@ def jornada_primeiro_acesso(email_usuario):
         "peso": peso,
         "objetivo": objetivo
     }
+
+def menu_home(dados_usuario_atual):
+    limpa_terminal()
+    print("=" * 70)
+    print(logo)
+    print("=" * 70)
+    print(f"{'🏠 PAINEL DO USUÁRIO':^70}")
+    print("=" * 70)
+
+    nome = dados_usuario_atual.get('nome')
+    print(f"\n|  Olá, {nome}! 👋")
+
+    imc = dados_usuario_atual.get('imc')
+    tmb = dados_usuario_atual.get('tmb')
+    objetivo = dados_usuario_atual.get('objetivo')
+
+    classificacao = classifica_imc(imc)
+    print(f'\n|  Seu IMC = {imc}  |  Classificação: {classificacao}')
+
+    manutencao = tmb * 1.4
+
+    if objetivo == "1":
+        meta_calorica = manutencao - 500
+        desc_objetivo = "Emagrecimento (Déficit)"
+    elif objetivo == "3":
+        meta_calorica = manutencao + 500
+        desc_objetivo = "Ganho de Massa (Superávit)"
+    else:
+        meta_calorica = manutencao
+        desc_objetivo = "Manter Peso"
+
+    print(f"\n Gasto Basal (TMB): {tmb:.0f} kcal")
+    print(f" Gasto Estimado:    {manutencao:.0f} kcal")
+    print(f" Sugestão Diária:   {meta_calorica:.0f} kcal")
