@@ -10,5 +10,29 @@
         "objetivo": "3",
         "imc": 22.3,
         "tmb": 1901.2
+    },
+    "eba@e": {
+        "senha": "1234567A",
+        "primeiro_acesso": false,
+        "nome": "Eba abe",
+        "idade": 60,
+        "genero": "F",
+        "altura": 140.0,
+        "peso": 55.0,
+        "objetivo": "1",
+        "imc": 28.06,
+        "tmb": 1159.51
+    },
+    "ei@ei": {
+        "senha": "1234567A",
+        "primeiro_acesso": false,
+        "nome": "clebton nogueira",
+        "idade": 12,
+        "genero": "M",
+        "altura": 155.0,
+        "peso": 51.0,
+        "objetivo": "3",
+        "imc": 21.23,
+        "tmb": 1462.22
     }
 }

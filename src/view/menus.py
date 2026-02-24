@@ -95,34 +95,48 @@ def jornada_primeiro_acesso(email_usuario):
 
 def menu_home(dados_usuario_atual):
     limpa_terminal()
-    print("=" * 70)
-    print(logo)
-    print("=" * 70)
-    print(f"{'🏠 PAINEL DO USUÁRIO':^70}")
-    print("=" * 70)
+
+    # print("╔" + "═" * 68 + "╗")
+    # print("║" + "🏠 PAINEL DO USUÁRIO".center(67) + "║")
+    # print("╚" + "═" * 68 + "╝")
 
     nome = dados_usuario_atual.get('nome')
-    print(f"\n|  Olá, {nome}! 👋")
+    primeiro_nome = nome.split()[0]
+    print(f"\n Olá, {primeiro_nome.title()}! 👋")
+    print("─" * 70)
 
-    imc = dados_usuario_atual.get('imc')
-    tmb = dados_usuario_atual.get('tmb')
-    objetivo = dados_usuario_atual.get('objetivo')
-
+    imc = dados_usuario_atual.get('imc', 0)
+    tmb = dados_usuario_atual.get('tmb', 0)
+    objetivo = dados_usuario_atual.get('objetivo', '0')
     classificacao = classifica_imc(imc)
-    print(f'\n|  Seu IMC = {imc}  |  Classificação: {classificacao}')
+    print(f" 📊 IMC = {imc:.1f}  →  {classificacao}".center(70))
 
     manutencao = tmb * 1.4
 
     if objetivo == "1":
         meta_calorica = manutencao - 500
-        desc_objetivo = "Emagrecimento (Déficit)"
+        desc_objetivo = "Emagrecimento (Déficit) 🔥"
     elif objetivo == "3":
         meta_calorica = manutencao + 500
-        desc_objetivo = "Ganho de Massa (Superávit)"
+        desc_objetivo = "Ganho de Massa (Superávit) 💪"
     else:
         meta_calorica = manutencao
-        desc_objetivo = "Manter Peso"
+        desc_objetivo = "Manter Peso ⚖️"
 
-    print(f"\n Gasto Basal (TMB): {tmb:.0f} kcal")
-    print(f" Gasto Estimado:    {manutencao:.0f} kcal")
-    print(f" Sugestão Diária:   {meta_calorica:.0f} kcal")
+    print("─" * 70)
+    print(f" 🎯 Seu Objetivo: {desc_objetivo}")
+    print("─" * 70)
+    print(f" 🔥 Gasto Basal:     {tmb:6.0f} kcal")
+    print(f" ⚡ Meta Diária:     {meta_calorica:6.0f} kcal")
+    print("─" * 70)
+
+    print("╔" + "═" * 45 + "╗")
+    print("║" + "OPÇÕES".center(45) + "║")
+    print("╠" + "═" * 45 + "╣")
+    print("║  [1] VER MINHA DIETA".ljust(46) + "║")
+    print("║  [2] ATUALIZAR DADOS".ljust(46) + "║")
+    print("║  [3] CONFIGURAÇÕES".ljust(46) + "║")
+    print("║  [4] SAIR".ljust(46) + "║")
+    print("╚" + "═" * 45 + "╝")
+    
+    escolha = input("\nEscolha: ").strip()
