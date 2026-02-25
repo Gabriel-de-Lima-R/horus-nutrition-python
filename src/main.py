@@ -49,7 +49,7 @@ def menu_login():
                     if opcao_escolhida_da_home == "1":
                         menu_mostra_dieta(dados_atuais)
                     elif opcao_escolhida_da_home == "2":
-                        menu_gerar_dieta(dados_atuais)
+                        menu_gerar_dieta(dados_atuais, email)
                         input()
                     elif opcao_escolhida_da_home == "4":
                         print("Encerrando sessão...")
@@ -67,7 +67,7 @@ def menu_login():
 
 
 def main():
-    #limpar_banco_de_usuarios()
+    # limpar_banco_de_usuarios()
     menu_login()
 
 if __name__ == '__main__':

@@ -1,6 +1,6 @@
 import os
 from view import HORUS_NUTRITION_LOGO as logo
-from services import DietService
+from services import DietService, UserService
 
 def limpa_terminal():
     os.system('cls' if os.name == 'nt' else 'clear')
@@ -154,7 +154,45 @@ def menu_mostra_dieta(dados_usuario_atual):
     print("║" + f"🥗 {dieta_usuario['nome']}".center(67) + "║")
     print("╚" + "═" * 68 + "╝")
 
-def menu_gerar_dieta(dados_usuario_atual):
+    # Exibe cada refeição
+    for i, refeicao in enumerate(dieta_usuario['refeicoes'], 1):
+        # Cabeçalho da refeição
+        if i == 0:
+            print() # pra pular a primeira vez
+        print(f"╔" + "═" * 68 + "╗")
+        print(f"║ {i}. {refeicao['nome'].upper().ljust(53)} {refeicao['calorias_totais']:4d} kcal ║")
+        print(f"╠" + "═" * 68 + "╣")
+
+        # Alimentos da refeição 
+        for alimento in refeicao['alimentos']:
+            nome = alimento['nome']
+            quantidade = alimento['quantidade']
+            unidade = alimento['unidade']
+            calorias = alimento['calorias']
+        
+            # Formata a linha do alimento
+            if unidade in ['g', 'ml', 'kg', 'l']:
+                quantidade_formatada = f"{quantidade}{unidade}"
+            else:
+                quantidade_formatada = f"{quantidade} {unidade}"
+
+            linha = f"║ • {nome}: {quantidade_formatada}"
+
+            # Preenche com espaços até a posição das calorias
+            espacos = 59 - len(linha)
+            if espacos > 0:
+                linha += " " * espacos
+            linha += f"{calorias:4d} kcal ║"
+            print(linha)
+
+        print("╚" + "═" * 68 + "╝")
+
+    input("Pressione ENTER para voltar...")
+    return True
+
+
+
+def menu_gerar_dieta(dados_usuario_atual, email_atual):
     limpa_terminal()
 
     if tem_dieta(dados_usuario_atual):
@@ -167,14 +205,17 @@ def menu_gerar_dieta(dados_usuario_atual):
             return False
     
     servico_dieta = DietService()
+    servico_usuario = UserService()
 
     dieta_perfeita = servico_dieta.buscar_dieta_ideal(
         dados_usuario_atual['meta_calorica'],
         dados_usuario_atual['objetivo']
     )
 
-    #print temporario para ver se deu certo
-    print(dieta_perfeita)
+    if dieta_perfeita:
+        servico_usuario.salvar_dieta(email_atual, dieta_perfeita)
+
+    print(dados_usuario_atual)
 
 
         

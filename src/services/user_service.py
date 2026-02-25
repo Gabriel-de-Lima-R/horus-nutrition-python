@@ -61,3 +61,19 @@ class UserService:
         self._salvar_usuarios(usuarios)
         return True
 
+    def salvar_dieta(self, email, dieta_escolhida):
+
+        #01 - Carregar o arquivo atual
+        usuarios = self._carregar_usuarios()
+
+        #02 - Verifica se o usuário existe
+        if email in usuarios:
+
+            #03 - Atualiza o campo dieta 
+            usuarios[email].update({
+                "dieta": dieta_escolhida
+            })
+            self._salvar_usuarios(usuarios)
+            return True
+
+        return False
