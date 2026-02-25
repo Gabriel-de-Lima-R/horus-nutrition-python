@@ -221,43 +221,45 @@ def menu_gerar_dieta(dados_usuario_atual, email_atual):
     input("Pressione ENTER para voltar...")
     return True
 
-def menu_cofiguracoes(dados_usuario_atual, email_atual):
-    limpa_terminal()
+def menu_configuracoes(dados_usuario_atual, email_atual):
 
-    # Cabeçalho principal
-    print("╔" + "═" * 68 + "╗")
-    print("║" + "⚙️  CONFIGURAÇÕES DA CONTA ⚙️".center(70) + "║")
-    print("╠" + "═" * 68 + "╣")
+    while True:
+        limpa_terminal()
+        # Cabeçalho principal
+        print("╔" + "═" * 68 + "╗")
+        print("║" + "⚙️  CONFIGURAÇÕES DA CONTA ⚙️".center(70) + "║")
+        print("╠" + "═" * 68 + "╣")
 
-    # Informações do usuário (resumo)
-    nome = dados_usuario_atual.get('nome', 'Usuário')
-    primeiro_nome = nome.split()[0]
-    print(f"║ 👤 Usuário: {primeiro_nome}".ljust(68) + "║")
-    print(f"║ 📧 Email: {email_atual}".ljust(68) + "║")
-    print("╚" + "═" * 68 + "╝")
+        # Informações do usuário (resumo)
+        nome = dados_usuario_atual.get('nome', 'Usuário')
+        primeiro_nome = nome.split()[0]
+        print(f"║ 👤 Usuário: {primeiro_nome}".ljust(68) + "║")
+        print(f"║ 📧 Email: {email_atual}".ljust(68) + "║")
+        print("╚" + "═" * 68 + "╝")
 
-    # Menu de opções
-    print("\n" + "╔" + "═" * 45 + "╗")
-    print("║" + "OPÇÕES DISPONÍVEIS".center(45) + "║")
-    print("╠" + "═" * 45 + "╣")
-    print("║  [1] EDITAR DADOS PESSOAIS".ljust(46) + "║")
-    print("║      (Idade, Altura, Peso, Senha)".ljust(46) + "║")
-    print("╠" + "─" * 45 + "╣")
-    print("║  [2] EXCLUIR CONTA".ljust(46) + "║")
-    print("║      (Ação irreversível)".ljust(46) + "║")
-    print("╠" + "─" * 45 + "╣")
-    print("║  [3] VOLTAR".ljust(46) + "║")
-    print("╚" + "═" * 45 + "╝")
+        # Menu de opções
+        print("\n" + "╔" + "═" * 45 + "╗")
+        print("║" + "OPÇÕES DISPONÍVEIS".center(45) + "║")
+        print("╠" + "═" * 45 + "╣")
+        print("║  [1] EDITAR DADOS PESSOAIS".ljust(46) + "║")
+        print("║      (Idade, Altura, Peso, Senha)".ljust(46) + "║")
+        print("╠" + "─" * 45 + "╣")
+        print("║  [2] EXCLUIR CONTA".ljust(46) + "║")
+        print("║      (Ação irreversível)".ljust(46) + "║")
+        print("╠" + "─" * 45 + "╣")
+        print("║  [3] VOLTAR".ljust(46) + "║")
+        print("╚" + "═" * 45 + "╝")
 
-    escolha = input("\nEscolha uma opção: ").strip()
+        escolha = input("\nEscolha uma opção: ").strip()
 
-    if escolha == "1":
-        altera_dado_usuario(dados_usuario_atual, email_atual)
-    elif escolha == "3":
-        pass
-
-    return True
-
+        if escolha == "1":
+            altera_dado_usuario(dados_usuario_atual, email_atual)
+        elif escolha == "2":
+            fecha_app = excluir_conta(dados_usuario_atual, email_atual)
+            if fecha_app:
+                return "Exclusão de conta"
+        elif escolha == "3":
+            return True
 
 def altera_dado_usuario(dados_usuario_atual, email_atual):
     limpa_terminal()
@@ -266,7 +268,7 @@ def altera_dado_usuario(dados_usuario_atual, email_atual):
     print("║" + " EDITAR DADOS PESSOAIS ".center(68) + "║")
     print("╚" + "═" * 68 + "╝")
     
-    print("DADOS ATUAIS:".center(45))
+    print(" DADOS ATUAIS: ".center(45))
     print("─" * 45)
     print(f"Idade: {dados_usuario_atual.get('idade', '---')} anos")
     print(f"Altura: {dados_usuario_atual.get('altura', '---')} cm")
@@ -285,7 +287,7 @@ def altera_dado_usuario(dados_usuario_atual, email_atual):
     alteracoes = {}
 
     limpa_terminal()
-    
+
     if escolha == "1":
         nova_idade = input("Nova idade: ").strip()
         try:
@@ -355,3 +357,35 @@ def altera_dado_usuario(dados_usuario_atual, email_atual):
 
     return True
         
+def excluir_conta(dados_usuario_atual, email_atual):
+    limpa_terminal()
+
+    print("╔" + "═" * 68 + "╗")
+    print("║" + "!! EXCLUIR CONTA !!".center(68) + "║")
+    print("╚" + "═" * 68 + "╝")
+    
+    print("\n⚠️  ATENÇÃO: Esta ação é permanente e todos os seus dados")
+    print("serão apagados (histórico, medidas e dieta).")
+    
+    confirmar = input("\nTem certeza que deseja continuar? (s/n): ").lower().strip()
+
+    if confirmar in ['s', 'sim']:
+        senha_confirmacao = input("Para sua segurança, digite sua SENHA: ").strip()
+        if senha_confirmacao == dados_usuario_atual['senha']:
+            servico_user = UserService()
+
+            if servico_user.deletar_usuario(email_atual):
+                print("\n✅ Conta excluída com sucesso!")
+                input("Pressione Enter para sair...")
+                return True
+            else:
+                print("\n❌ Erro ao acessar o banco de dados.")
+
+        else:
+            print("\n❌ Senha incorreta! Operação cancelada.")
+    
+    else:
+        print("\n Operação cancelada com sucesso!")
+    
+    input("\nPressione Enter para voltar...")
+    return False

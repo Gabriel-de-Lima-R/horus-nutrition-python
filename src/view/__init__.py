@@ -4,5 +4,5 @@ from .menus import (
     menu_home,
     menu_mostra_dieta,
     menu_gerar_dieta,
-    menu_cofiguracoes,
+    menu_configuracoes,
 )

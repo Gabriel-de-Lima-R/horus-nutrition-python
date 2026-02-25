@@ -85,3 +85,13 @@ class UserService:
             self._salvar_usuarios(usuarios)
             return True
         return False
+    
+    def deletar_usuario(self, email):
+        usuarios = self._carregar_usuarios()
+        
+        if email in usuarios:
+            del usuarios[email]
+            self._salvar_usuarios(usuarios)
+            return True
+
+        return False

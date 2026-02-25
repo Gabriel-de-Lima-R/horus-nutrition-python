@@ -2,7 +2,7 @@ import json
 import os
 from services import CalculatorIMC, Autenticacao, UserService
 from view import HORUS_NUTRITION_LOGO as logo
-from view import jornada_primeiro_acesso, menu_home, menu_mostra_dieta, menu_gerar_dieta, menu_cofiguracoes
+from view import jornada_primeiro_acesso, menu_home, menu_mostra_dieta, menu_gerar_dieta, menu_configuracoes
 
 def limpar_banco_de_usuarios():
     """Reseta o banco usuarios_db"""
@@ -14,8 +14,12 @@ def limpar_banco_de_usuarios():
     except Exception as erro:
         print(f'Erro ao limpar o arquivo JSON: {erro}')
 
+def limpa_terminal():
+    os.system('cls' if os.name == 'nt' else 'clear')
+
 def menu_login():
     while True:
+        limpa_terminal()
         print(logo)
         print("=" * 86, '\n')
         print("1. Criar Conta")
@@ -51,11 +55,12 @@ def menu_login():
                     elif opcao_escolhida_da_home == "2":
                         menu_gerar_dieta(dados_atuais, email)
                     elif opcao_escolhida_da_home == "3":
-                        menu_cofiguracoes(dados_atuais, email)
+                        fecha_app = menu_configuracoes(dados_atuais, email)
+                        if fecha_app == "Exclusão de conta":
+                            break
                     elif opcao_escolhida_da_home == "4":
                         print("Encerrando sessão...")
                         break
-            input()
 
         elif opcao == "3":
             print("Encerrando...")
