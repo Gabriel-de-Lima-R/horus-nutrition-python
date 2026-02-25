@@ -1,6 +1,6 @@
 import os
 from view import HORUS_NUTRITION_LOGO as logo
-from services import DietService, UserService
+from services import DietService, UserService, CalculatorIMC, CalculatorTMB
 
 def limpa_terminal():
     os.system('cls' if os.name == 'nt' else 'clear')
@@ -190,8 +190,6 @@ def menu_mostra_dieta(dados_usuario_atual):
     input("Pressione ENTER para voltar...")
     return True
 
-
-
 def menu_gerar_dieta(dados_usuario_atual, email_atual):
     limpa_terminal()
 
@@ -242,20 +240,118 @@ def menu_cofiguracoes(dados_usuario_atual, email_atual):
     print("\n" + "╔" + "═" * 45 + "╗")
     print("║" + "OPÇÕES DISPONÍVEIS".center(45) + "║")
     print("╠" + "═" * 45 + "╣")
-    print("║  [1] EDITAR DADOS PESSOAIS".ljust(43) + "║")
+    print("║  [1] EDITAR DADOS PESSOAIS".ljust(46) + "║")
     print("║      (Idade, Altura, Peso, Senha)".ljust(46) + "║")
     print("╠" + "─" * 45 + "╣")
-    print("║  [2] EXCLUIR CONTA".ljust(43) + "║")
-    print("║      (Ação irreversível)".ljust(45) + "║")
+    print("║  [2] EXCLUIR CONTA".ljust(46) + "║")
+    print("║      (Ação irreversível)".ljust(46) + "║")
     print("╠" + "─" * 45 + "╣")
-    print("║  [3] VOLTAR".ljust(43) + "║")
+    print("║  [3] VOLTAR".ljust(46) + "║")
     print("╚" + "═" * 45 + "╝")
 
     escolha = input("\nEscolha uma opção: ").strip()
 
-    if escolha == "3":
-        return True
+    if escolha == "1":
+        altera_dado_usuario(dados_usuario_atual, email_atual)
+    elif escolha == "3":
+        pass
+
+    return True
 
 
+def altera_dado_usuario(dados_usuario_atual, email_atual):
+    limpa_terminal()
+    
+    print("╔" + "═" * 68 + "╗")
+    print("║" + " EDITAR DADOS PESSOAIS ".center(68) + "║")
+    print("╚" + "═" * 68 + "╝")
+    
+    print("DADOS ATUAIS:".center(45))
+    print("─" * 45)
+    print(f"Idade: {dados_usuario_atual.get('idade', '---')} anos")
+    print(f"Altura: {dados_usuario_atual.get('altura', '---')} cm")
+    print(f"Peso: {dados_usuario_atual.get('peso', '---')} kg")
+    
+    print("\n O QUE DESEJA ALTERAR?")
+    print("╔" + "═" * 45 + "╗")
+    print("║  [1] Idade".ljust(46) + "║")
+    print("║  [2] Altura".ljust(46) + "║")
+    print("║  [3] Peso".ljust(46) + "║")
+    print("║  [4] Senha".ljust(46) + "║")
+    print("║  [5] Voltar".ljust(46) + "║")
+    print("╚" + "═" * 45 + "╝")
 
+    escolha = input("\nEscolha uma opção: ").strip()
+    alteracoes = {}
+
+    limpa_terminal()
+    
+    if escolha == "1":
+        nova_idade = input("Nova idade: ").strip()
+        try:
+            alteracoes['idade'] = int(nova_idade)
+        except:
+            print(f"Não foi possivel mudar sua idade para {nova_idade}")
+
+    elif escolha == "2":
+        nova_altura = input("Nova altura (cm): ").strip()
+        try:
+            alteracoes['altura'] = float(nova_altura)
+        except:
+            print(f"Não foi possivel mudar sua altura para {nova_altura}")
+
+    elif escolha == "3":
+        novo_peso = input("Novo peso (kg): ")
+        try:
+            alteracoes['peso'] = float(novo_peso)
+        except:
+            print(f"Não foi possivel mudar seu peso para {novo_peso}")
+
+    elif escolha == "4":
+        nova_senha = input("Nova senha (mín. 8 caracteres, 1 maiúscula): ")
+        confirmar = input("Confirme a nova senha: ")
+
+        if nova_senha != confirmar:
+            print("\n❌ As senhas não conferem!")
+            input("Pressione Enter para continuar...")
+            return altera_dado_usuario(dados_usuario_atual, email_atual)
+
+        alteracoes['senha'] = nova_senha
+    
+    # Se houver alguma alteração para fazer
+    if alteracoes:
+        servico_user = UserService()
+        
+        # 1. Se alterou dados físicos, precisamos recalcular TMB e Meta
+        if any(chave in alteracoes for chave in ['idade', 'peso', 'altura']):
+            # Pegamos os dados antigos e atualizamos com os novos para o cálculo
+            dados_para_calculo = dados_usuario_atual.copy()
+            dados_para_calculo.update(alteracoes)
+            
+            # Chamamos sua função de cálculo (ajuste o nome se for diferente)
+            novo_imc = CalculatorIMC(dados_para_calculo['peso'], dados_para_calculo['altura']).imc
+            nova_tmb = CalculatorTMB(
+                dados_para_calculo['peso'],
+                dados_para_calculo['altura'],
+                dados_para_calculo['genero'],
+                dados_para_calculo['idade']
+            ).tmb
+            
+            alteracoes['imc'] = novo_imc
+            alteracoes['tmb'] = nova_tmb
+      
+            nova_meta, x = DietService().calcular_meta_calorica(nova_tmb, dados_usuario_atual['objetivo'])
+
+            alteracoes['meta_calorica'] = nova_meta
+            print("\n🔄 Seus cálculos de IMC e TMB foram atualizados!")
+
+        # 2. Salva de fato no banco de dados
+        if servico_user.atualizar_perfil(email_atual, alteracoes):
+            print("\n✅ Alterações salvas com sucesso!")
+        else:
+            print("\n❌ Erro ao salvar alterações.")
+    
+    input("\nPressione Enter para voltar...")
+
+    return True
         

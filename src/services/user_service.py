@@ -77,3 +77,11 @@ class UserService:
             return True
 
         return False
+
+    def atualizar_perfil(self, email, alteracoes):
+        usuarios = self._carregar_usuarios()
+        if email in usuarios:
+            usuarios[email].update(alteracoes)
+            self._salvar_usuarios(usuarios)
+            return True
+        return False
