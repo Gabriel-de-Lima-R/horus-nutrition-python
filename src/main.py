@@ -2,7 +2,7 @@ import json
 import os
 from services import CalculatorIMC, Autenticacao, UserService
 from view import HORUS_NUTRITION_LOGO as logo
-from view import jornada_primeiro_acesso, menu_home, menu_mostra_dieta, menu_gerar_dieta
+from view import jornada_primeiro_acesso, menu_home, menu_mostra_dieta, menu_gerar_dieta, menu_cofiguracoes
 
 def limpar_banco_de_usuarios():
     """Reseta o banco usuarios_db"""
@@ -50,7 +50,8 @@ def menu_login():
                         menu_mostra_dieta(dados_atuais)
                     elif opcao_escolhida_da_home == "2":
                         menu_gerar_dieta(dados_atuais, email)
-                        input()
+                    elif opcao_escolhida_da_home == "3":
+                        menu_cofiguracoes(dados_atuais, email)
                     elif opcao_escolhida_da_home == "4":
                         print("Encerrando sessão...")
                         break

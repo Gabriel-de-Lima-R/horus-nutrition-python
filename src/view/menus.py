@@ -214,8 +214,48 @@ def menu_gerar_dieta(dados_usuario_atual, email_atual):
 
     if dieta_perfeita:
         servico_usuario.salvar_dieta(email_atual, dieta_perfeita)
+    
+    # Cabeçalho que avisa
+    print("╔" + "═" * 68 + "╗")
+    print("║" + "🥗 GERANDO SUA DIETA...".center(67) + "║")
+    print("╚" + "═" * 68 + "╝")
 
-    print(dados_usuario_atual)
+    input("Pressione ENTER para voltar...")
+    return True
+
+def menu_cofiguracoes(dados_usuario_atual, email_atual):
+    limpa_terminal()
+
+    # Cabeçalho principal
+    print("╔" + "═" * 68 + "╗")
+    print("║" + "⚙️  CONFIGURAÇÕES DA CONTA ⚙️".center(70) + "║")
+    print("╠" + "═" * 68 + "╣")
+
+    # Informações do usuário (resumo)
+    nome = dados_usuario_atual.get('nome', 'Usuário')
+    primeiro_nome = nome.split()[0]
+    print(f"║ 👤 Usuário: {primeiro_nome}".ljust(68) + "║")
+    print(f"║ 📧 Email: {email_atual}".ljust(68) + "║")
+    print("╚" + "═" * 68 + "╝")
+
+    # Menu de opções
+    print("\n" + "╔" + "═" * 45 + "╗")
+    print("║" + "OPÇÕES DISPONÍVEIS".center(45) + "║")
+    print("╠" + "═" * 45 + "╣")
+    print("║  [1] EDITAR DADOS PESSOAIS".ljust(43) + "║")
+    print("║      (Idade, Altura, Peso, Senha)".ljust(46) + "║")
+    print("╠" + "─" * 45 + "╣")
+    print("║  [2] EXCLUIR CONTA".ljust(43) + "║")
+    print("║      (Ação irreversível)".ljust(45) + "║")
+    print("╠" + "─" * 45 + "╣")
+    print("║  [3] VOLTAR".ljust(43) + "║")
+    print("╚" + "═" * 45 + "╝")
+
+    escolha = input("\nEscolha uma opção: ").strip()
+
+    if escolha == "3":
+        return True
+
 
 
         
