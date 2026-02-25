@@ -20,9 +20,15 @@ class DietService:
 
     def calcular_meta_calorica(self, tmb, objetivo):
         """Lógica de meta baseada no objetivo."""
-        manutencao = tmb * 1.4
-        if objetivo == "1": return manutencao - 500
-        if objetivo == "3": return manutencao + 500
-        return manutencao
-    
-    
+        meta_calorica = tmb * 1.4
+        if objetivo == "1": 
+            meta_calorica -= 500
+            desc_objetivo = "Emagrecimento (Déficit) 🔥"
+        elif objetivo == "3": 
+            meta_calorica += 500
+            desc_objetivo = "Ganho de Massa (Superávit) 💪"
+        else:
+             desc_objetivo = "Manter Peso ⚖️"
+
+        return meta_calorica, desc_objetivo
+

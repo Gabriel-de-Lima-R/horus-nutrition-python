@@ -94,6 +94,10 @@ def jornada_primeiro_acesso(email_usuario):
         "objetivo": objetivo
     }
 
+def tem_dieta(dados):
+    dieta = dados.get('dieta')
+    return dieta is not None and len(dieta) > 0
+
 def menu_home(dados_usuario_atual):
     limpa_terminal()
 
@@ -108,21 +112,11 @@ def menu_home(dados_usuario_atual):
 
     imc = dados_usuario_atual.get('imc', 0)
     tmb = dados_usuario_atual.get('tmb', 0)
-    objetivo = dados_usuario_atual.get('objetivo', '0')
+    meta_calorica = dados_usuario_atual.get('meta_calorica', 0)
+    desc_objetivo = dados_usuario_atual.get('desc_objetivo', 'Não definido')
+
     classificacao = classifica_imc(imc)
     print(f" 📊 IMC = {imc:.1f}  →  {classificacao}".center(70))
-
-    manutencao = DietService().calcular_meta_calorica(tmb, objetivo)
-
-    if objetivo == "1":
-        meta_calorica = manutencao - 500
-        desc_objetivo = "Emagrecimento (Déficit) 🔥"
-    elif objetivo == "3":
-        meta_calorica = manutencao + 500
-        desc_objetivo = "Ganho de Massa (Superávit) 💪"
-    else:
-        meta_calorica = manutencao
-        desc_objetivo = "Manter Peso ⚖️"
 
     print("─" * 70)
     print(f" 🎯 Seu Objetivo: {desc_objetivo}")
@@ -135,7 +129,7 @@ def menu_home(dados_usuario_atual):
     print("║" + "OPÇÕES".center(45) + "║")
     print("╠" + "═" * 45 + "╣")
     print("║  [1] VER MINHA DIETA".ljust(46) + "║")
-    print("║  [2] ATUALIZAR DADOS".ljust(46) + "║")
+    print("║  [2] GERAR DIETA".ljust(46) + "║")
     print("║  [3] CONFIGURAÇÕES".ljust(46) + "║")
     print("║  [4] SAIR".ljust(46) + "║")
     print("╚" + "═" * 45 + "╝")
@@ -145,17 +139,32 @@ def menu_home(dados_usuario_atual):
 
 def menu_mostra_dieta(dados_usuario_atual):
     limpa_terminal()
-
-    dieta_usuario = dados_usuario_atual.get('dieta')
     
-    if not dieta_usuario:
+    if not tem_dieta(dados_usuario_atual):
         print("\n" + "!"*40)
         print("🔍 Você ainda não possui uma dieta.")
         print("Volte para a Tela Home para gerar uma!")
         print("!"*40)
         input("\nPressione Enter para voltar...")
         return False
+
+    dieta_usuario = dados_usuario_atual.get('dieta')
     
     print("╔" + "═" * 68 + "╗")
     print("║" + f"🥗 {dieta_usuario['nome']}".center(67) + "║")
     print("╚" + "═" * 68 + "╝")
+
+def menu_gerar_dieta(dados_usuario_atual):
+    limpa_terminal()
+
+    if tem_dieta(dados_usuario_atual):
+        print("⚠️ Você já possui uma dieta ativa!")
+        confirmacao = input("Deseja substituí-la por uma nova? (s/n): ").lower().strip()
+        
+        if confirmacao not in ['s', 'sim'] :
+            print("\nOperação cancelada. Mantendo dieta atual...")
+            input("Pressione Enter para voltar...")
+            return False
+    
+
+        

@@ -1,6 +1,8 @@
 import json
 import os
-from services import Autenticacao, CalculatorIMC, CalculatorTMB
+from .auth import Autenticacao
+from .calculator import CalculatorIMC, CalculatorTMB
+from .diet_service import DietService
 
 class UserService:
     def __init__(self):
@@ -38,7 +40,10 @@ class UserService:
             dados_coletados["idade"]
         )
 
-        #03 - Atualizar dicionário
+        #03 Calcula Meta e Define Objetivo
+        meta_calorica, desc_objetivo = DietService().calcular_meta_calorica(calculo_tmb.tmb, dados_coletados['objetivo'])
+
+        #04 - Atualizar dicionário
         usuarios[email].update({
             "nome": dados_coletados['nome'],
             "idade": dados_coletados['idade'],
@@ -48,7 +53,9 @@ class UserService:
             "objetivo": dados_coletados['objetivo'],
             "imc": calculo_imc.imc,
             "tmb": calculo_tmb.tmb,
-            "primeiro_acesso": False
+            "primeiro_acesso": False,
+            "meta_calorica": meta_calorica,
+            "desc_objetivo": desc_objetivo
         })
 
         self._salvar_usuarios(usuarios)
