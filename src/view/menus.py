@@ -166,5 +166,15 @@ def menu_gerar_dieta(dados_usuario_atual):
             input("Pressione Enter para voltar...")
             return False
     
+    servico_dieta = DietService()
+
+    dieta_perfeita = servico_dieta.buscar_dieta_ideal(
+        dados_usuario_atual['meta_calorica'],
+        dados_usuario_atual['objetivo']
+    )
+
+    #print temporario para ver se deu certo
+    print(dieta_perfeita)
+
 
         

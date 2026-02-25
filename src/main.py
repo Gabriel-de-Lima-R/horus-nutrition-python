@@ -42,7 +42,7 @@ def menu_login():
                     dados = jornada_primeiro_acesso(usuario._email)
                     if servico.salvar_perfil(email, dados):
                         print("Perfil Configurado com Sucesso".upper())
-                        input()
+                        input() # só para ver se deu certo
                 while True:
                     dados_atuais = servico.buscar_usuario(email)
                     opcao_escolhida_da_home = menu_home(dados_atuais) # mostra as informações da home e retorna a opção escolhida da home
@@ -50,6 +50,7 @@ def menu_login():
                         menu_mostra_dieta(dados_atuais)
                     elif opcao_escolhida_da_home == "2":
                         menu_gerar_dieta(dados_atuais)
+                        input()
                     elif opcao_escolhida_da_home == "4":
                         print("Encerrando sessão...")
                         break
@@ -66,7 +67,7 @@ def menu_login():
 
 
 def main():
-    # limpar_banco_de_usuarios()
+    #limpar_banco_de_usuarios()
     menu_login()
 
 if __name__ == '__main__':

@@ -32,3 +32,33 @@ class DietService:
 
         return meta_calorica, desc_objetivo
 
+    def buscar_dieta_ideal(self, meta_calorica, objetivo_usuario):
+        dietas = self._carregar_dietas()
+
+        if not dietas:
+            return None
+        
+        dieta_escolhida = dietas[0]
+        menor_diferenca = abs(meta_calorica - dietas[0]["calorias_totais"])
+
+        for i in range(1, len(dietas)):
+            calorias_atual = dietas[i]["calorias_totais"]
+            diferenca = abs(meta_calorica - calorias_atual)
+
+            if diferenca < menor_diferenca:
+                menor_diferenca = diferenca
+                dieta_escolhida = dietas[i]
+
+            elif diferenca == menor_diferenca:
+            # Desempate para Ganho de Massa (3): prefere a maior
+                if objetivo_usuario == "3":
+                    if calorias_atual > dieta_escolhida["calorias_totais"]:
+                        dieta_escolhida = dietas[i]
+                # Desempate para Emagrecer/Manter: prefere a menor
+                else:
+                    if calorias_atual < dieta_escolhida["calorias_totais"]:
+                        dieta_escolhida = dietas[i]
+            
+        return dieta_escolhida
+        
+        
