@@ -43,6 +43,7 @@ O sistema foi desenvolvido seguindo boas práticas de programação, com foco em
 - **JSON** - Persistência de dados
 
 ## 📁 Estrutura do Projeto
+```
 HORUS NUTRITION
 │
 ├── data/
@@ -76,6 +77,7 @@ HORUS NUTRITION
 ├── requirements.txt             # dependências 
 ├── regras_de_negocio.txt        # documento com as regras de negócio do projeto (RN01 a RN12)
 └── .gitignore                   # arquivos ignorados
+```
 
 ## 🚀 Como Executar o Projeto
 
