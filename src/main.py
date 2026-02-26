@@ -41,12 +41,14 @@ def menu_login():
             usuario = Autenticacao(email, senha)
             if usuario.fazer_login():
                 servico = UserService()
+                limpa_terminal()
 
                 if usuario.primeiro_acesso:
                     dados = jornada_primeiro_acesso(usuario._email)
                     if servico.salvar_perfil(email, dados):
                         print("Perfil Configurado com Sucesso".upper())
-                        input() # só para ver se deu certo
+                        input("Precione ENTER para continuar...")
+                        
                 while True:
                     dados_atuais = servico.buscar_usuario(email)
                     opcao_escolhida_da_home = menu_home(dados_atuais) # mostra as informações da home e retorna a opção escolhida da home
@@ -61,6 +63,9 @@ def menu_login():
                     elif opcao_escolhida_da_home == "4":
                         print("Encerrando sessão...")
                         break
+            else:
+                input("Pressione ENTER para continuar...")
+
 
         elif opcao == "3":
             print("Encerrando...")
@@ -69,8 +74,6 @@ def menu_login():
         else:
             print("Opção inválida.")
             input()
-
-
 
 def main():
     # limpar_banco_de_usuarios()

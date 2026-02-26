@@ -225,6 +225,11 @@ def menu_configuracoes(dados_usuario_atual, email_atual):
 
     while True:
         limpa_terminal()
+
+        # Proteção do sistema, caso o dados_usuario_atual dê problema
+        if dados_usuario_atual is None:
+            return "Exclusão de conta"
+
         # Cabeçalho principal
         print("╔" + "═" * 68 + "╗")
         print("║" + "⚙️  CONFIGURAÇÕES DA CONTA ⚙️".center(70) + "║")
@@ -254,6 +259,7 @@ def menu_configuracoes(dados_usuario_atual, email_atual):
 
         if escolha == "1":
             altera_dado_usuario(dados_usuario_atual, email_atual)
+            dados_usuario_atual = UserService().buscar_usuario(email_atual)
         elif escolha == "2":
             fecha_app = excluir_conta(dados_usuario_atual, email_atual)
             if fecha_app:
@@ -287,6 +293,7 @@ def altera_dado_usuario(dados_usuario_atual, email_atual):
     alteracoes = {}
 
     limpa_terminal()
+    servico_user = UserService()
 
     if escolha == "1":
         nova_idade = input("Nova idade: ").strip()
@@ -318,13 +325,17 @@ def altera_dado_usuario(dados_usuario_atual, email_atual):
             input("Pressione Enter para continuar...")
             return altera_dado_usuario(dados_usuario_atual, email_atual)
 
-        alteracoes['senha'] = nova_senha
+        if len(nova_senha) >= 8 and any(char.isupper() for char in nova_senha):
+            alteracoes['senha'] = nova_senha
+        else:
+            print("\n❌ A senha precisa ter 8 caracteres e ter uma letra maiúscula!")
+            input("Pressione Enter para continuar...")
+            return altera_dado_usuario(dados_usuario_atual, email_atual)
     
     # Se houver alguma alteração para fazer
     if alteracoes:
-        servico_user = UserService()
         
-        # 1. Se alterou dados físicos, precisamos recalcular TMB e Meta
+        # 1. Se alterou dados físicos, precisamos recalcular IMC e TMB
         if any(chave in alteracoes for chave in ['idade', 'peso', 'altura']):
             # Pegamos os dados antigos e atualizamos com os novos para o cálculo
             dados_para_calculo = dados_usuario_atual.copy()
