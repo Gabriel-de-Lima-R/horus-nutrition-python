@@ -2,26 +2,35 @@ import json
 import os
 from services import CalculatorIMC, Autenticacao, UserService
 from view import HORUS_NUTRITION_LOGO as logo
-from view import jornada_primeiro_acesso, menu_home, menu_mostra_dieta, menu_gerar_dieta, menu_configuracoes
+from view import (
+    jornada_primeiro_acesso,
+    menu_home,
+    menu_mostra_dieta,
+    menu_gerar_dieta,
+    menu_configuracoes,
+)
+
 
 def limpar_banco_de_usuarios():
     """Reseta o banco usuarios_db"""
     try:
-        with open(Autenticacao.DB_PATH, 'w', encoding='utf-8') as arquivo:
+        with open(Autenticacao.DB_PATH, "w", encoding="utf-8") as arquivo:
             banco_vazio = {}
             json.dump(banco_vazio, arquivo)
         print("Bando de dados (JSON) limpo com sucesso!")
     except Exception as erro:
-        print(f'Erro ao limpar o arquivo JSON: {erro}')
+        print(f"Erro ao limpar o arquivo JSON: {erro}")
+
 
 def limpa_terminal():
-    os.system('cls' if os.name == 'nt' else 'clear')
+    os.system("cls" if os.name == "nt" else "clear")
+
 
 def menu_login():
     while True:
         limpa_terminal()
         print(logo)
-        print("=" * 86, '\n')
+        print("=" * 86, "\n")
         print("1. Criar Conta")
         print("2. Fazer Login")
         print("3. Fechar App")
@@ -30,7 +39,9 @@ def menu_login():
 
         if opcao == "1":
             email = input("Digite seu e-mail: ").strip()
-            senha = input("Digite sua senha (mín. 8 caracteres e 1 maiúscula): ").strip()
+            senha = input(
+                "Digite sua senha (mín. 8 caracteres e 1 maiúscula): "
+            ).strip()
             usuario = Autenticacao(email, senha)
             usuario.criar_conta()
             input()
@@ -48,10 +59,12 @@ def menu_login():
                     if servico.salvar_perfil(email, dados):
                         print("Perfil Configurado com Sucesso".upper())
                         input("Precione ENTER para continuar...")
-                        
+
                 while True:
                     dados_atuais = servico.buscar_usuario(email)
-                    opcao_escolhida_da_home = menu_home(dados_atuais) # mostra as informações da home e retorna a opção escolhida da home
+                    opcao_escolhida_da_home = menu_home(
+                        dados_atuais
+                    )  # mostra as informações da home e retorna a opção escolhida da home
                     if opcao_escolhida_da_home == "1":
                         menu_mostra_dieta(dados_atuais)
                     elif opcao_escolhida_da_home == "2":
@@ -66,7 +79,6 @@ def menu_login():
             else:
                 input("Pressione ENTER para continuar...")
 
-
         elif opcao == "3":
             print("Encerrando...")
             break
@@ -75,9 +87,11 @@ def menu_login():
             print("Opção inválida.")
             input()
 
+
 def main():
     # limpar_banco_de_usuarios()
     menu_login()
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     main()

@@ -3,11 +3,12 @@ import os
 import json
 from src.services import Autenticacao
 
+
 class TestAutenticacao:
     @pytest.fixture(autouse=True)
     def setup_db(self):
         """Limpa o JSON antes de cada teste para garantir isolamento."""
-        with open(Autenticacao.DB_PATH, 'w', encoding='utf-8') as f:
+        with open(Autenticacao.DB_PATH, "w", encoding="utf-8") as f:
             json.dump({}, f)
 
     def test_criar_conta_valida(self):
@@ -32,7 +33,7 @@ class TestAutenticacao:
         resultado = usuario_duplicado.criar_conta()
 
         # Then
-        assert resultado is False 
+        assert resultado is False
 
     def test_senha_fraca(self):
         # Given
@@ -40,11 +41,11 @@ class TestAutenticacao:
         senha_fraca = "sen123"
         usuario_fraco = Autenticacao(email, senha_fraca)
 
-        #When
+        # When
         resultado = usuario_fraco.criar_conta()
 
         # Then
-        assert resultado is False 
+        assert resultado is False
 
     def test_fazer_login_corretamente(self):
         # Given
@@ -58,7 +59,7 @@ class TestAutenticacao:
 
         # Then
         assert resultado is True
-    
+
     def test_login_incorreto(self):
         # Given
         email = "login@horus.com"
@@ -71,5 +72,3 @@ class TestAutenticacao:
 
         # Then
         assert resultado is False
-
-    

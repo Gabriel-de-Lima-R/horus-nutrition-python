@@ -2,15 +2,18 @@ import os
 from view import HORUS_NUTRITION_LOGO as logo
 from services import DietService, UserService, CalculatorIMC, CalculatorTMB
 
+
 def limpa_terminal():
-    os.system('cls' if os.name == 'nt' else 'clear')
+    os.system("cls" if os.name == "nt" else "clear")
+
 
 def coleta_nome():
-     while True:
+    while True:
         nome_completo = input("Qual o seu nome completo: ").strip()
         if len(nome_completo) >= 2:
             return nome_completo
         print("Tente Novamente. Precisa ser o nome completo!\n")
+
 
 def coleta_idade():
     while True:
@@ -22,6 +25,7 @@ def coleta_idade():
         except:
             print("Precisa ser um número válido!\n")
 
+
 def coleta_genero():
     while True:
         genero = input("Qual seu gênero (M / F): ").strip().upper()
@@ -29,25 +33,32 @@ def coleta_genero():
             return genero
         print("Tente Novamente. Você precisa digitar M ou F!\n")
 
+
 def coleta_altura():
     while True:
         try:
-            altura = float(input("Qual a sua altura atual em cm (ex: 175): ").replace(".", ""))
+            altura = float(
+                input("Qual a sua altura atual em cm (ex: 175): ").replace(".", "")
+            )
             if 50 < altura < 300:
                 return altura
             print("Tente Novamente. Você precisa ter entre 50 a 300 cm de altura!\n")
         except:
             print("Precisa ser um número válido (ex: 175)!\n")
 
+
 def coleta_peso():
     while True:
         try:
-            peso = float(input("Qual o seu peso atual em kg (ex: 70.8): ").replace(",", "."))
+            peso = float(
+                input("Qual o seu peso atual em kg (ex: 70.8): ").replace(",", ".")
+            )
             if 0 < peso < 300:
                 return peso
             print("Tente Novamente. Você precisa ter entre 0 a 300 kg de peso!\n")
         except:
             print("Precisa ser um número válido (ex: 70.5)!\n")
+
 
 def coleta_objetivo():
     while True:
@@ -57,9 +68,10 @@ def coleta_objetivo():
             return objetivo
         print("Escolha uma opção válida!\n")
 
+
 def classifica_imc(imc: float):
     if not imc:
-        return "Não calculado" 
+        return "Não calculado"
     if imc < 18.5:
         return "Abaixo do peso"
     elif imc < 25:
@@ -69,11 +81,12 @@ def classifica_imc(imc: float):
     else:
         return "Obesidade"
 
+
 def jornada_primeiro_acesso(email_usuario):
-    print("\n" + "="*40)
+    print("\n" + "=" * 40)
     print("Seja Bem-Vindo(a) ao Horus Nutrition")
     print("Precisamos de alguns dados para calcular seu plano!")
-    print("="*40 + "\n")
+    print("=" * 40 + "\n")
 
     nome_completo = coleta_nome()
     idade = coleta_idade()
@@ -91,12 +104,14 @@ def jornada_primeiro_acesso(email_usuario):
         "genero": genero,
         "altura": altura,
         "peso": peso,
-        "objetivo": objetivo
+        "objetivo": objetivo,
     }
 
+
 def tem_dieta(dados):
-    dieta = dados.get('dieta')
+    dieta = dados.get("dieta")
     return dieta is not None and len(dieta) > 0
+
 
 def menu_home(dados_usuario_atual):
     limpa_terminal()
@@ -105,15 +120,15 @@ def menu_home(dados_usuario_atual):
     print("║" + "🏠 PAINEL DO USUÁRIO".center(67) + "║")
     print("╚" + "═" * 68 + "╝")
 
-    nome = dados_usuario_atual.get('nome')
+    nome = dados_usuario_atual.get("nome")
     primeiro_nome = nome.split()[0]
     print(f"\n Olá, {primeiro_nome.title()}! 👋")
     print("─" * 70)
 
-    imc = dados_usuario_atual.get('imc', 0)
-    tmb = dados_usuario_atual.get('tmb', 0)
-    meta_calorica = dados_usuario_atual.get('meta_calorica', 0)
-    desc_objetivo = dados_usuario_atual.get('desc_objetivo', 'Não definido')
+    imc = dados_usuario_atual.get("imc", 0)
+    tmb = dados_usuario_atual.get("tmb", 0)
+    meta_calorica = dados_usuario_atual.get("meta_calorica", 0)
+    desc_objetivo = dados_usuario_atual.get("desc_objetivo", "Não definido")
 
     classificacao = classifica_imc(imc)
     print(f" 📊 IMC = {imc:.1f}  →  {classificacao}".center(70))
@@ -133,45 +148,48 @@ def menu_home(dados_usuario_atual):
     print("║  [3] CONFIGURAÇÕES".ljust(46) + "║")
     print("║  [4] SAIR".ljust(46) + "║")
     print("╚" + "═" * 45 + "╝")
-    
+
     escolha = input("\nEscolha: ").strip()
     return escolha
 
+
 def menu_mostra_dieta(dados_usuario_atual):
     limpa_terminal()
-    
+
     if not tem_dieta(dados_usuario_atual):
-        print("\n" + "!"*40)
+        print("\n" + "!" * 40)
         print("🔍 Você ainda não possui uma dieta.")
         print("Volte para a Tela Home para gerar uma!")
-        print("!"*40)
+        print("!" * 40)
         input("\nPressione Enter para voltar...")
         return False
 
-    dieta_usuario = dados_usuario_atual.get('dieta')
-    
+    dieta_usuario = dados_usuario_atual.get("dieta")
+
     print("╔" + "═" * 68 + "╗")
     print("║" + f"🥗 {dieta_usuario['nome']}".center(67) + "║")
     print("╚" + "═" * 68 + "╝")
 
     # Exibe cada refeição
-    for i, refeicao in enumerate(dieta_usuario['refeicoes'], 1):
+    for i, refeicao in enumerate(dieta_usuario["refeicoes"], 1):
         # Cabeçalho da refeição
         if i == 0:
-            print() # pra pular a primeira vez
+            print()  # pra pular a primeira vez
         print(f"╔" + "═" * 68 + "╗")
-        print(f"║ {i}. {refeicao['nome'].upper().ljust(53)} {refeicao['calorias_totais']:4d} kcal ║")
+        print(
+            f"║ {i}. {refeicao['nome'].upper().ljust(53)} {refeicao['calorias_totais']:4d} kcal ║"
+        )
         print(f"╠" + "═" * 68 + "╣")
 
-        # Alimentos da refeição 
-        for alimento in refeicao['alimentos']:
-            nome = alimento['nome']
-            quantidade = alimento['quantidade']
-            unidade = alimento['unidade']
-            calorias = alimento['calorias']
-        
+        # Alimentos da refeição
+        for alimento in refeicao["alimentos"]:
+            nome = alimento["nome"]
+            quantidade = alimento["quantidade"]
+            unidade = alimento["unidade"]
+            calorias = alimento["calorias"]
+
             # Formata a linha do alimento
-            if unidade in ['g', 'ml', 'kg', 'l']:
+            if unidade in ["g", "ml", "kg", "l"]:
                 quantidade_formatada = f"{quantidade}{unidade}"
             else:
                 quantidade_formatada = f"{quantidade} {unidade}"
@@ -190,29 +208,29 @@ def menu_mostra_dieta(dados_usuario_atual):
     input("Pressione ENTER para voltar...")
     return True
 
+
 def menu_gerar_dieta(dados_usuario_atual, email_atual):
     limpa_terminal()
 
     if tem_dieta(dados_usuario_atual):
         print("⚠️ Você já possui uma dieta ativa!")
         confirmacao = input("Deseja substituí-la por uma nova? (s/n): ").lower().strip()
-        
-        if confirmacao not in ['s', 'sim'] :
+
+        if confirmacao not in ["s", "sim"]:
             print("\nOperação cancelada. Mantendo dieta atual...")
             input("Pressione Enter para voltar...")
             return False
-    
+
     servico_dieta = DietService()
     servico_usuario = UserService()
 
     dieta_perfeita = servico_dieta.buscar_dieta_ideal(
-        dados_usuario_atual['meta_calorica'],
-        dados_usuario_atual['objetivo']
+        dados_usuario_atual["meta_calorica"], dados_usuario_atual["objetivo"]
     )
 
     if dieta_perfeita:
         servico_usuario.salvar_dieta(email_atual, dieta_perfeita)
-    
+
     # Cabeçalho que avisa
     print("╔" + "═" * 68 + "╗")
     print("║" + "🥗 GERANDO SUA DIETA...".center(67) + "║")
@@ -220,6 +238,7 @@ def menu_gerar_dieta(dados_usuario_atual, email_atual):
 
     input("Pressione ENTER para voltar...")
     return True
+
 
 def menu_configuracoes(dados_usuario_atual, email_atual):
 
@@ -236,7 +255,7 @@ def menu_configuracoes(dados_usuario_atual, email_atual):
         print("╠" + "═" * 68 + "╣")
 
         # Informações do usuário (resumo)
-        nome = dados_usuario_atual.get('nome', 'Usuário')
+        nome = dados_usuario_atual.get("nome", "Usuário")
         primeiro_nome = nome.split()[0]
         print(f"║ 👤 Usuário: {primeiro_nome}".ljust(68) + "║")
         print(f"║ 📧 Email: {email_atual}".ljust(68) + "║")
@@ -267,19 +286,20 @@ def menu_configuracoes(dados_usuario_atual, email_atual):
         elif escolha == "3":
             return True
 
+
 def altera_dado_usuario(dados_usuario_atual, email_atual):
     limpa_terminal()
-    
+
     print("╔" + "═" * 68 + "╗")
     print("║" + " EDITAR DADOS PESSOAIS ".center(68) + "║")
     print("╚" + "═" * 68 + "╝")
-    
+
     print(" DADOS ATUAIS: ".center(45))
     print("─" * 45)
     print(f"Idade: {dados_usuario_atual.get('idade', '---')} anos")
     print(f"Altura: {dados_usuario_atual.get('altura', '---')} cm")
     print(f"Peso: {dados_usuario_atual.get('peso', '---')} kg")
-    
+
     print("\n O QUE DESEJA ALTERAR?")
     print("╔" + "═" * 45 + "╗")
     print("║  [1] Idade".ljust(46) + "║")
@@ -298,21 +318,21 @@ def altera_dado_usuario(dados_usuario_atual, email_atual):
     if escolha == "1":
         nova_idade = input("Nova idade: ").strip()
         try:
-            alteracoes['idade'] = int(nova_idade)
+            alteracoes["idade"] = int(nova_idade)
         except:
             print(f"Não foi possivel mudar sua idade para {nova_idade}")
 
     elif escolha == "2":
         nova_altura = input("Nova altura (cm): ").strip()
         try:
-            alteracoes['altura'] = float(nova_altura)
+            alteracoes["altura"] = float(nova_altura)
         except:
             print(f"Não foi possivel mudar sua altura para {nova_altura}")
 
     elif escolha == "3":
         novo_peso = input("Novo peso (kg): ")
         try:
-            alteracoes['peso'] = float(novo_peso)
+            alteracoes["peso"] = float(novo_peso)
         except:
             print(f"Não foi possivel mudar seu peso para {novo_peso}")
 
@@ -326,36 +346,40 @@ def altera_dado_usuario(dados_usuario_atual, email_atual):
             return altera_dado_usuario(dados_usuario_atual, email_atual)
 
         if len(nova_senha) >= 8 and any(char.isupper() for char in nova_senha):
-            alteracoes['senha'] = nova_senha
+            alteracoes["senha"] = nova_senha
         else:
             print("\n❌ A senha precisa ter 8 caracteres e ter uma letra maiúscula!")
             input("Pressione Enter para continuar...")
             return altera_dado_usuario(dados_usuario_atual, email_atual)
-    
+
     # Se houver alguma alteração para fazer
     if alteracoes:
-        
+
         # 1. Se alterou dados físicos, precisamos recalcular IMC e TMB
-        if any(chave in alteracoes for chave in ['idade', 'peso', 'altura']):
+        if any(chave in alteracoes for chave in ["idade", "peso", "altura"]):
             # Pegamos os dados antigos e atualizamos com os novos para o cálculo
             dados_para_calculo = dados_usuario_atual.copy()
             dados_para_calculo.update(alteracoes)
-            
-            # Chamamos sua função de cálculo (ajuste o nome se for diferente)
-            novo_imc = CalculatorIMC(dados_para_calculo['peso'], dados_para_calculo['altura']).imc
-            nova_tmb = CalculatorTMB(
-                dados_para_calculo['peso'],
-                dados_para_calculo['altura'],
-                dados_para_calculo['genero'],
-                dados_para_calculo['idade']
-            ).tmb
-            
-            alteracoes['imc'] = novo_imc
-            alteracoes['tmb'] = nova_tmb
-      
-            nova_meta, x = DietService().calcular_meta_calorica(nova_tmb, dados_usuario_atual['objetivo'])
 
-            alteracoes['meta_calorica'] = nova_meta
+            # Chamamos sua função de cálculo (ajuste o nome se for diferente)
+            novo_imc = CalculatorIMC(
+                dados_para_calculo["peso"], dados_para_calculo["altura"]
+            ).imc
+            nova_tmb = CalculatorTMB(
+                dados_para_calculo["peso"],
+                dados_para_calculo["altura"],
+                dados_para_calculo["genero"],
+                dados_para_calculo["idade"],
+            ).tmb
+
+            alteracoes["imc"] = novo_imc
+            alteracoes["tmb"] = nova_tmb
+
+            nova_meta, x = DietService().calcular_meta_calorica(
+                nova_tmb, dados_usuario_atual["objetivo"]
+            )
+
+            alteracoes["meta_calorica"] = nova_meta
             print("\n🔄 Seus cálculos de IMC e TMB foram atualizados!")
 
         # 2. Salva de fato no banco de dados
@@ -363,26 +387,27 @@ def altera_dado_usuario(dados_usuario_atual, email_atual):
             print("\n✅ Alterações salvas com sucesso!")
         else:
             print("\n❌ Erro ao salvar alterações.")
-    
+
     input("\nPressione Enter para voltar...")
 
     return True
-        
+
+
 def excluir_conta(dados_usuario_atual, email_atual):
     limpa_terminal()
 
     print("╔" + "═" * 68 + "╗")
     print("║" + "!! EXCLUIR CONTA !!".center(68) + "║")
     print("╚" + "═" * 68 + "╝")
-    
+
     print("\n⚠️  ATENÇÃO: Esta ação é permanente e todos os seus dados")
     print("serão apagados (histórico, medidas e dieta).")
-    
+
     confirmar = input("\nTem certeza que deseja continuar? (s/n): ").lower().strip()
 
-    if confirmar in ['s', 'sim']:
+    if confirmar in ["s", "sim"]:
         senha_confirmacao = input("Para sua segurança, digite sua SENHA: ").strip()
-        if senha_confirmacao == dados_usuario_atual['senha']:
+        if senha_confirmacao == dados_usuario_atual["senha"]:
             servico_user = UserService()
 
             if servico_user.deletar_usuario(email_atual):
@@ -394,9 +419,9 @@ def excluir_conta(dados_usuario_atual, email_atual):
 
         else:
             print("\n❌ Senha incorreta! Operação cancelada.")
-    
+
     else:
         print("\n Operação cancelada com sucesso!")
-    
+
     input("\nPressione Enter para voltar...")
     return False

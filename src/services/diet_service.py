@@ -21,14 +21,14 @@ class DietService:
     def calcular_meta_calorica(self, tmb, objetivo):
         """Lógica de meta baseada no objetivo."""
         meta_calorica = tmb * 1.4
-        if objetivo == "1": 
+        if objetivo == "1":
             meta_calorica -= 500
             desc_objetivo = "Emagrecimento (Déficit) 🔥"
-        elif objetivo == "3": 
+        elif objetivo == "3":
             meta_calorica += 500
             desc_objetivo = "Ganho de Massa (Superávit) 💪"
         else:
-             desc_objetivo = "Manter Peso ⚖️"
+            desc_objetivo = "Manter Peso ⚖️"
 
         return meta_calorica, desc_objetivo
 
@@ -37,7 +37,7 @@ class DietService:
 
         if not dietas:
             return None
-        
+
         dieta_escolhida = dietas[0]
         menor_diferenca = abs(meta_calorica - dietas[0]["calorias_totais"])
 
@@ -50,7 +50,7 @@ class DietService:
                 dieta_escolhida = dietas[i]
 
             elif diferenca == menor_diferenca:
-            # Desempate para Ganho de Massa (3): prefere a maior
+                # Desempate para Ganho de Massa (3): prefere a maior
                 if objetivo_usuario == "3":
                     if calorias_atual > dieta_escolhida["calorias_totais"]:
                         dieta_escolhida = dietas[i]
@@ -58,7 +58,5 @@ class DietService:
                 else:
                     if calorias_atual < dieta_escolhida["calorias_totais"]:
                         dieta_escolhida = dietas[i]
-            
+
         return dieta_escolhida
-        
-        

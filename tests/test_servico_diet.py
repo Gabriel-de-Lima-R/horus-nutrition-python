@@ -1,12 +1,13 @@
 import pytest
 from src.services.diet_service import DietService
 
+
 class TestDietService:
 
     def test_deve_encontrar_dieta_mais_proxima_da_meta(self):
         # GIVEN: Uma meta de 1500 kcal
         meta_calorica = 1500
-        objetivo = "1" # Emagrecer
+        objetivo = "1"  # Emagrecer
         servico = DietService()
 
         # WHEN: Buscamos a dieta
@@ -14,13 +15,13 @@ class TestDietService:
 
         # THEN: Como no seu JSON a dieta é 1510, verificamos se ele trouxe a correta
         assert dieta_escolhida is not None
-        assert dieta_escolhida["calorias_totais"] == 1510 
+        assert dieta_escolhida["calorias_totais"] == 1510
         assert "Dieta Moderada" in dieta_escolhida["nome"]
 
     def test_deve_encontrar_dieta_mais_proxima_para_ganho_massa(self):
         # GIVEN: Uma meta de 3000 kcal
         meta_calorica = 3000
-        objetivo = "3" # Ganho de Massa
+        objetivo = "3"  # Ganho de Massa
         servico = DietService()
 
         # WHEN: Buscamos a dieta
@@ -35,7 +36,7 @@ class TestDietService:
     def test_calculo_meta_calorica_emagrecimento(self):
         # GIVEN: Uma TMB de 2000
         tmb = 2000
-        objetivo = "1" # Emagrecer
+        objetivo = "1"  # Emagrecer
         servico = DietService()
 
         # WHEN: Calculamos a meta (TMB * 1.4 - 500)
