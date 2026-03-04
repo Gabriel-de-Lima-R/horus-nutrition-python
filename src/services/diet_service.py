@@ -1,14 +1,18 @@
 import json
 import os
 from services import Autenticacao
+from typing import List, Dict, Any, Tuple, Optional
 
 
 class DietService:
-    def __init__(self):
+    def __init__(self) -> None:
+        """
+        Define o Caminho Absoluto e o Caminho para o Arquivo 'dietas_db.json'
+        """
         self.BASE_DIR = Autenticacao.BASE_DIR
         self.DB_DIETAS = os.path.join(self.BASE_DIR, "data", "dietas_db.json")
 
-    def _carregar_dietas(self):
+    def _carregar_dietas(self) -> List[Dict[str, Any]]:
         """Lê o arquivo dietas_db.json usando o caminho absoluto corrigido."""
 
         try:
@@ -18,7 +22,7 @@ class DietService:
         except (FileNotFoundError, json.JSONDecodeError):
             return []
 
-    def calcular_meta_calorica(self, tmb, objetivo):
+    def calcular_meta_calorica(self, tmb: float, objetivo: str) -> Tuple[float, str]:
         """Lógica de meta baseada no objetivo."""
         meta_calorica = tmb * 1.4
         if objetivo == "1":
@@ -32,7 +36,23 @@ class DietService:
 
         return meta_calorica, desc_objetivo
 
-    def buscar_dieta_ideal(self, meta_calorica, objetivo_usuario):
+    def buscar_dieta_ideal(
+        self, meta_calorica: float, objetivo_usuario: str
+    ) -> Optional[Dict]:
+        """
+        Encontra a dieta no banco de dados que possui a contagem calórica mais próxima da meta.
+
+        O algoritmo busca a menor diferença absoluta. Em caso de empate exato:
+        - Se o objetivo for Ganho de Massa ("3"), seleciona a dieta com mais calorias.
+        - Para os demais objetivos, seleciona a dieta com menos calorias.
+
+        Args:
+            meta_calorica (float): O valor alvo de calorias calculado.
+            objetivo_usuario (str): O código do objetivo do usuário.
+
+        Returns:
+            Optional[dict]: O dicionário da dieta encontrada ou None se a base estiver vazia.
+        """
         dietas = self._carregar_dietas()
 
         if not dietas:

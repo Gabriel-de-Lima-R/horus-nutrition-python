@@ -3,13 +3,15 @@ import os
 from .auth import Autenticacao
 from .calculator import CalculatorIMC, CalculatorTMB
 from .diet_service import DietService
+from typing import Dict, Any, Optional
 
 
 class UserService:
-    def __init__(self):
+    def __init__(self) -> None:
+        """Define o Caminho Absoluto"""
         self.db_path = Autenticacao.DB_PATH
 
-    def _carregar_usuarios(self):
+    def _carregar_usuarios(self) -> dict[str, Any]:
         """Lê o arquivo JSON e retorna um dicionário."""
         try:
             with open(self.db_path, "r", encoding="utf-8") as arquivo:
@@ -17,16 +19,17 @@ class UserService:
         except (FileNotFoundError, json.JSONDecodeError):
             return {}
 
-    def _salvar_usuarios(self, dados):
+    def _salvar_usuarios(self, dados: dict[str, Any]) -> None:
         """Grava o dicionário de usuários no arquivo JSON."""
         with open(self.db_path, "w", encoding="utf-8") as arquivo:
             json.dump(dados, arquivo, indent=4)
 
-    def buscar_usuario(self, email):
+    def buscar_usuario(self, email: str) -> Optional[dict[str, Any]]:
+        """Recupera os dados de um usuário específico pelo e-mail."""
         usuarios = self._carregar_usuarios()
         return usuarios.get(email)
 
-    def salvar_perfil(self, email, dados_coletados):
+    def salvar_perfil(self, email: str, dados_coletados: dict[str, Any]) -> bool:
         """Calcula IMC/TMB e atualiza o usuário no JSON"""
 
         # 01 - Carregar o arquivo atual
@@ -66,8 +69,8 @@ class UserService:
         self._salvar_usuarios(usuarios)
         return True
 
-    def salvar_dieta(self, email, dieta_escolhida):
-
+    def salvar_dieta(self, email: str, dieta_escolhida: dict[str, Any]) -> bool:
+        """Vincula uma dieta específica ao perfil do usuário."""
         # 01 - Carregar o arquivo atual
         usuarios = self._carregar_usuarios()
 
@@ -81,7 +84,8 @@ class UserService:
 
         return False
 
-    def atualizar_perfil(self, email, alteracoes):
+    def atualizar_perfil(self, email: str, alteracoes: dict[str, Any]) -> bool:
+        """Aplica alterações parciais no dicionário do usuário."""
         usuarios = self._carregar_usuarios()
         if email in usuarios:
             usuarios[email].update(alteracoes)
@@ -89,7 +93,8 @@ class UserService:
             return True
         return False
 
-    def deletar_usuario(self, email):
+    def deletar_usuario(self, email: str) -> bool:
+        """Remove permanentemente um usuário da base de dados."""
         usuarios = self._carregar_usuarios()
 
         if email in usuarios:

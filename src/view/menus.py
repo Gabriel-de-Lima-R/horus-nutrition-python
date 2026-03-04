@@ -1,13 +1,18 @@
+"""Arquivo dedicado para os menus do app."""
+
 import os
 from view import HORUS_NUTRITION_LOGO as logo
 from services import DietService, UserService, CalculatorIMC, CalculatorTMB
+from typing import Dict, Any
 
 
-def limpa_terminal():
+def limpa_terminal() -> None:
+    """Limpa o console de acordo com o sistema operacional"""
     os.system("cls" if os.name == "nt" else "clear")
 
 
-def coleta_nome():
+def coleta_nome() -> str:
+    """Solicita e valida o nome completo do usuário via terminal."""
     while True:
         nome_completo = input("Qual o seu nome completo: ").strip()
         if len(nome_completo) >= 2:
@@ -15,7 +20,8 @@ def coleta_nome():
         print("Tente Novamente. Precisa ser o nome completo!\n")
 
 
-def coleta_idade():
+def coleta_idade() -> int:
+    """Solicita e valida a idade do usuário via terminal."""
     while True:
         try:
             idade = int(input("Quantos anos você tem: "))
@@ -26,7 +32,8 @@ def coleta_idade():
             print("Precisa ser um número válido!\n")
 
 
-def coleta_genero():
+def coleta_genero() -> str:
+    """Solicita e valida o gênero correto do usuário via terminal."""
     while True:
         genero = input("Qual seu gênero (M / F): ").strip().upper()
         if genero in ["M", "F", "MASCULINO", "FEMININO"]:
@@ -34,12 +41,14 @@ def coleta_genero():
         print("Tente Novamente. Você precisa digitar M ou F!\n")
 
 
-def coleta_altura():
+def coleta_altura() -> int:
+    """Solicita e valida a altura do usuário em centímetros."""
     while True:
         try:
-            altura = float(
-                input("Qual a sua altura atual em cm (ex: 175): ").replace(".", "")
+            altura_str = input("Qual a sua altura atual em cm (ex: 175): ").replace(
+                ".", ""
             )
+            altura = int(float(altura_str))
             if 50 < altura < 300:
                 return altura
             print("Tente Novamente. Você precisa ter entre 50 a 300 cm de altura!\n")
@@ -47,7 +56,8 @@ def coleta_altura():
             print("Precisa ser um número válido (ex: 175)!\n")
 
 
-def coleta_peso():
+def coleta_peso() -> float:
+    """Solicita e valida o peso do usuário em quilogramas."""
     while True:
         try:
             peso = float(
@@ -60,7 +70,16 @@ def coleta_peso():
             print("Precisa ser um número válido (ex: 70.5)!\n")
 
 
-def coleta_objetivo():
+def coleta_objetivo() -> str:
+    """
+    Exibe o menu de objetivos e retorna a opção escolhida pelo usuário.
+
+    As opções disponíveis são:
+    - "1": Emagrecer
+    - "2": Manter peso
+    - "3": Ganhar massa muscular
+    """
+
     while True:
         print("\nObjetivos: [1] Emagrecer | [2] Manter | [3] Ganhar Massa")
         objetivo = input("Escolha o número do seu objetivo: ").strip()
@@ -69,7 +88,8 @@ def coleta_objetivo():
         print("Escolha uma opção válida!\n")
 
 
-def classifica_imc(imc: float):
+def classifica_imc(imc: float) -> str:
+    """Categoriza o Índice de Massa Corporal (IMC) seguindo os padrões da OMS."""
     if not imc:
         return "Não calculado"
     if imc < 18.5:
@@ -82,7 +102,14 @@ def classifica_imc(imc: float):
         return "Obesidade"
 
 
-def jornada_primeiro_acesso(email_usuario):
+def jornada_primeiro_acesso(email_usuario: str) -> Dict[str, Any]:
+    """
+    Orquestra a coleta sequencial de dados biográficos e físicos do usuário.
+
+    Esta função é disparada apenas no primeiro login. Ela invoca múltiplas
+    funções de coleta (nome, idade, gênero, altura, peso e objetivo) para
+    montar o perfil inicial.
+    """
     print("\n" + "=" * 40)
     print("Seja Bem-Vindo(a) ao Horus Nutrition")
     print("Precisamos de alguns dados para calcular seu plano!")
@@ -108,19 +135,29 @@ def jornada_primeiro_acesso(email_usuario):
     }
 
 
-def tem_dieta(dados):
+def tem_dieta(dados: Dict[str, Any]) -> bool:
+    """Verifica se o perfil do usuário já possui uma dieta atribuída."""
     dieta = dados.get("dieta")
     return dieta is not None and len(dieta) > 0
 
 
-def menu_home(dados_usuario_atual):
+def menu_home(dados_usuario_atual: Dict[str, Any]) -> str:
+    """
+    Exibe o painel principal com as métricas de saúde e o menu de navegação.
+
+    Apresenta de forma formatada:
+    - O nome do usuário e saudação.
+    - Resultados de IMC e sua respectiva classificação.
+    - Objetivo atual, TMB (Gasto Basal) e Meta Calórica.
+    - Lista de opções de navegação do aplicativo.
+    """
     limpa_terminal()
 
     print("╔" + "═" * 68 + "╗")
     print("║" + "🏠 PAINEL DO USUÁRIO".center(67) + "║")
     print("╚" + "═" * 68 + "╝")
 
-    nome = dados_usuario_atual.get("nome")
+    nome = dados_usuario_atual.get("nome", "Usuário")
     primeiro_nome = nome.split()[0]
     print(f"\n Olá, {primeiro_nome.title()}! 👋")
     print("─" * 70)
@@ -153,7 +190,13 @@ def menu_home(dados_usuario_atual):
     return escolha
 
 
-def menu_mostra_dieta(dados_usuario_atual):
+def menu_mostra_dieta(dados_usuario_atual: Dict[str, Any]) -> bool:
+    """
+    Renderiza visualmente a dieta atual do usuário no terminal.
+
+    Verifica se o usuário possui uma dieta ativa e, em caso positivo, formata
+    e exibe as refeições, alimentos, quantidades e calorias em tabelas ASCII.
+    """
     limpa_terminal()
 
     if not tem_dieta(dados_usuario_atual):
@@ -164,7 +207,7 @@ def menu_mostra_dieta(dados_usuario_atual):
         input("\nPressione Enter para voltar...")
         return False
 
-    dieta_usuario = dados_usuario_atual.get("dieta")
+    dieta_usuario = dados_usuario_atual.get("dieta", {})
 
     print("╔" + "═" * 68 + "╗")
     print("║" + f"🥗 {dieta_usuario['nome']}".center(67) + "║")
@@ -209,7 +252,14 @@ def menu_mostra_dieta(dados_usuario_atual):
     return True
 
 
-def menu_gerar_dieta(dados_usuario_atual, email_atual):
+def menu_gerar_dieta(dados_usuario_atual: dict[str, Any], email_atual: str) -> bool:
+    """
+    Gerencia a lógica de atribuição de uma nova dieta ao perfil do usuário.
+
+    Verifica se já existe uma dieta e solicita confirmação para substituição.
+    Utiliza o DietService para buscar a dieta mais próxima da meta calórica
+    e o UserService para persistir a escolha.
+    """
     limpa_terminal()
 
     if tem_dieta(dados_usuario_atual):
@@ -240,7 +290,8 @@ def menu_gerar_dieta(dados_usuario_atual, email_atual):
     return True
 
 
-def menu_configuracoes(dados_usuario_atual, email_atual):
+def menu_configuracoes(dados_usuario_atual: dict[str, Any], email_atual: str):
+    """Exibe o menu de configurações da conta e gerencia a navegação de edição/exclusão."""
 
     while True:
         limpa_terminal()
@@ -278,7 +329,7 @@ def menu_configuracoes(dados_usuario_atual, email_atual):
 
         if escolha == "1":
             altera_dado_usuario(dados_usuario_atual, email_atual)
-            dados_usuario_atual = UserService().buscar_usuario(email_atual)
+            dados_usuario_atual = UserService().buscar_usuario(email_atual) or {}
         elif escolha == "2":
             fecha_app = excluir_conta(dados_usuario_atual, email_atual)
             if fecha_app:
@@ -287,7 +338,13 @@ def menu_configuracoes(dados_usuario_atual, email_atual):
             return True
 
 
-def altera_dado_usuario(dados_usuario_atual, email_atual):
+def altera_dado_usuario(dados_usuario_atual: dict[str, Any], email_atual: str) -> bool:
+    """
+    Interface para alteração de dados específicos (Idade, Altura, Peso ou Senha).
+
+    Se houver alteração em dados físicos (peso/altura/idade), a função dispara
+    automaticamente o recálculo do IMC, TMB e Meta Calórica antes de salvar.
+    """
     limpa_terminal()
 
     print("╔" + "═" * 68 + "╗")
@@ -393,7 +450,13 @@ def altera_dado_usuario(dados_usuario_atual, email_atual):
     return True
 
 
-def excluir_conta(dados_usuario_atual, email_atual):
+def excluir_conta(dados_usuario_atual: dict[str, Any], email_atual: str) -> bool:
+    """
+    Realiza o processo de exclusão definitiva do usuário do sistema.
+
+    Exige uma confirmação dupla (input de sim/não e validação de senha)
+    para garantir que a ação é intencional.
+    """
     limpa_terminal()
 
     print("╔" + "═" * 68 + "╗")

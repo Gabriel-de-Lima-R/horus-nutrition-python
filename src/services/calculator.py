@@ -1,27 +1,35 @@
 class Calculator:
-    def __init__(self, peso, altura):
+    def __init__(self, peso: float, altura: int) -> None:
+        """Recebe peso em kg e altura em cm"""
         self._peso = peso
         self._altura = altura
 
 
 class CalculatorIMC(Calculator):
-    def __init__(self, peso, altura):
+    def __init__(self, peso: float, altura: int) -> None:
+        """Utiliza da herança para definir o peso e a altura"""
         super().__init__(peso, altura)
 
     @property
-    def imc(self):
+    def imc(self) -> float:
+        """Retorna o IMC calculado e arredondado para 2 casas decimais."""
         indice_massa_corporal = round(self._peso / (self._altura / 100) ** 2, 2)
         return indice_massa_corporal
 
 
 class CalculatorTMB(Calculator):
-    def __init__(self, peso, altura, genero, idade):
+    def __init__(self, peso: float, altura: int, genero: str, idade: int) -> None:
+        """
+        Utiliza da herança para definir o peso e a altura.
+        E define por conta propria o gênero e idade.
+        """
         super().__init__(peso, altura)
         self._genero = genero
         self._idade = idade
 
     @property
-    def tmb(self):
+    def tmb(self) -> float:
+        """Retorna a TMB baseada no gênero e dados biométricos."""
         genero_limpo = self._genero.lower().strip()
         if genero_limpo in ["m", "masculino"]:
             taxa_metabolica_basal = round(

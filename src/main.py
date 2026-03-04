@@ -11,7 +11,7 @@ from view import (
 )
 
 
-def limpar_banco_de_usuarios():
+def limpar_banco_de_usuarios() -> None:
     """Reseta o banco usuarios_db"""
     try:
         with open(Autenticacao.DB_PATH, "w", encoding="utf-8") as arquivo:
@@ -22,11 +22,32 @@ def limpar_banco_de_usuarios():
         print(f"Erro ao limpar o arquivo JSON: {erro}")
 
 
-def limpa_terminal():
+def limpa_terminal() -> None:
+    """Limpa o console de acordo com o sistema operacional."""
     os.system("cls" if os.name == "nt" else "clear")
 
 
-def menu_login():
+def menu_login() -> None:
+    """
+    Gerencia o loop principal da interface de autenticação e navegação do app.
+
+    Esta função atua como o ponto de entrada principal do usuário, permitindo:
+    1. Criação de novas contas via classe Autenticacao.
+    2. Realização de login e inicialização da sessão.
+    3. Fluxo de primeiro acesso (configuração de perfil).
+    4. Acesso ao menu principal (Home) e submenus de dieta e configurações.
+
+    Dependências:
+        - Autenticacao: Para validação de credenciais e registro.
+        - UserService: Para persistência e busca de dados do perfil.
+        - jornada_primeiro_acesso: Função de coleta de dados iniciais.
+        - Submenus: menu_home, menu_mostra_dieta, menu_gerar_dieta, menu_configuracoes.
+
+    Note:
+        A função utiliza um loop infinito (`while True`) que só é interrompido
+        quando o usuário seleciona a opção "Fechar App" (Opção 3).
+    """
+
     while True:
         limpa_terminal()
         print(logo)
@@ -88,10 +109,12 @@ def menu_login():
             input()
 
 
-def main():
+def main() -> None:
+    """Função Principal do Programa, onde roda o menu_login()"""
     # limpar_banco_de_usuarios()
     menu_login()
 
 
+# Verifica se esse arquivo é o main, se sim, executa a função main()
 if __name__ == "__main__":
     main()
